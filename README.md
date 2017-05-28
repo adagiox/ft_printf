@@ -6,7 +6,9 @@
 The format string is specified as follows:
 <p><code>%[flags][width][.precision][length]type</code></p>
 
-followed by a variable list of arguments to be printed to the standard output.
+and is followed by a variable list of arguments to be printed to the standard output.
+
+ft_printf is implemented very similar to glibc's implementation by calling ft_vprintf.
 
 ft_printf handles:
 
