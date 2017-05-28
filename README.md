@@ -3,10 +3,10 @@
 
 
 The protoype is:
-	int printf(const char *format, ...);
+	``int printf(const char *format, ...);``
 
 Where the format string is specefied as follows:
-	%[flags][width][.precision][length]type
+	``%[flags][width][.precision][length]type``
 
 followed by a variable list of arguments to be printed to the standard output.
 
