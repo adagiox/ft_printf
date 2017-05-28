@@ -1,10 +1,10 @@
 # ft_printf
 **A remake of printf in C.**
-``int printf(const char *format, ...);``
+<p><code>int printf(const char *format, ...);</code></p>
 
 
 The format string is specified as follows:
-``%[flags][width][.precision][length]type``
+<p><code>%[flags][width][.precision][length]type</code></p>
 
 followed by a variable list of arguments to be printed to the standard output.
 
