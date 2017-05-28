@@ -1,14 +1,21 @@
 # ft_printf
 A remake of printf in C.
 
-ft_printf takes a format string
+
+The protoype is:
+	int printf(const char *format, ...);
+
+Where the format string is specefied as follows:
 	%[flags][width][.precision][length]type
-and a variable list of arguments to be printed to the standard output.
+
+followed by a variable list of arguments to be printed to the standard output.
 
 ft_printf handles:
 
-• Flags: #0-+ and space
-• Width
-• Precision
-• Length: hh, h, l, ll, j, and z.
-• Types: sSpdDioOuUxXcC
+<ul>
+<li>Flags: #0-+ and space</li>
+<li>Width</li>
+<li>Precision</li>
+<li>Length: hh, h, l, ll, j, and z.</li>
+<li>Types: sSpdDioOuUxXcC</li>
+</ul>
