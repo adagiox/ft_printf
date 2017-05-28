@@ -1,5 +1,5 @@
 # ft_printf
-A remake of printf in C.
+**A remake of printf in C.**
 
 
 The protoype is:
