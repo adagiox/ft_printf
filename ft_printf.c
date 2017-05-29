@@ -1,6 +1,6 @@
-#include <stdio.h>
+#include "ft_printf.h"
 
-int main()
+int ft_printf(const char *format, ...)
 {
 	char *str = "Test string.";
 	int i = -10;
