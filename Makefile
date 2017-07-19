@@ -1,5 +1,8 @@
 all:
 	@gcc ft_printf.c
 
-test: all
+test: clean all
 	@./a.out
+
+clean:
+	@rm a.out

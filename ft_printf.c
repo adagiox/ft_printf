@@ -2,12 +2,10 @@
 
 int ft_printf(const char *format, ...)
 {
-	char *str = "Test string.";
-	int i = -10;
-	int j = 10;
+	int done;
 
-	printf("%s\n", str);
-	printf("%+i\n",i);
-	printf("% i\n",j);
-	return 0;
+	va_list args;
+	va_start(args);
+	done = ft_vprintf(format, args);
+	va_end(args);
 }
