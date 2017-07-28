@@ -1,8 +1,19 @@
+FILES = ft_printf.c \
+	ft_vprintf.c \
+	ft_parseformat.c
+
+FLAGS = -c -Wall -Werror -Wextra
+
+OBJ = $(FILES:%.c=%.o)
+
+
 all:
-	@gcc ft_printf.c
+	ar crs
+	@gcc $(FILES) $(OBJ) $(FLAGS)
 
 test: clean all
+	@gcc main.c
 	@./a.out
 
 clean:
-	@rm a.out
+	-rm -f a.out

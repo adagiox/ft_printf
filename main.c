@@ -1,9 +1,9 @@
 #include <stdio.h>
+#include <unistd.h>
 
 int main()
 {
-	char j = 'A';
-
-	printf("%hhd\n", j);
+	wchar_t = 249;
+	write(1, &c, 1);
 	return 0;
 }
