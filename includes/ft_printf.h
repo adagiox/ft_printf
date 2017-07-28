@@ -3,6 +3,8 @@
 #include <stdarg.h>
 #include "libft.h"
 
+// Enumeration of types returned by the format parser
+
 typedef enum	e_type
 {
 	PA_INT,		/* int */
@@ -15,6 +17,20 @@ typedef enum	e_type
 	PA_DOUBLE,	/* double */
 	PA_LAST
 }				t_type;
+
+// Function pointer typedef
+
+typedef int (*t_func)(t_printf *print);
+
+t_func g_func_arr[] = {};
+
+// Calls the appropriate function for a chosen type
+
+typedef struct	s_handler
+{
+	t_type htype;
+	t_func hfunc;
+}				t_handler;
 
 typedef struct	s_printf
 {
@@ -46,10 +62,10 @@ typedef struct	s_plist
 }				t_plist;
 
 int	ft_printf(const char *format, ...);
-int ft_vprintf(const char *format, va_list args);
-int parse_format(const char *format, va_list args);
+int parse_format(char *format, va_list args);
 int str_size(char *str);
 int print_buffer(t_plist *list);
-t_printf *parse_subfmt(char **format, va_list args);
+char *parse_subfmt(char *format);
+t_printf *parse_set(char **format, va_list args);
 t_plist *lstnew(t_printf *data);
 t_plist *lstadd(t_plist *head, t_printf *data);

@@ -6,7 +6,7 @@ int ft_printf(const char *format, ...)
 
 	va_list args;
 	va_start(args, format);
-	parse_format(format, args);
+	parse_format((char *)format, args);
 	va_end(args);
 	return done;
 }
