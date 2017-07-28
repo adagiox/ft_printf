@@ -1,8 +1,8 @@
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 // Create a new t_plist node from a t_printf struct
 
-t_plist *lstnew(t_printf data)
+t_plist *lstnew(t_printf *data)
 {
 	t_plist *new;
 	new = (t_plist *)malloc(sizeof(t_plist));
@@ -11,7 +11,7 @@ t_plist *lstnew(t_printf data)
 	return new;
 }
 
-t_plist *lstadd(t_plist *head, t_printf data)
+t_plist *lstadd(t_plist *head, t_printf *data)
 {
 	t_plist *ptr;
 	if (head == NULL)

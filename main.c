@@ -1,9 +1,7 @@
-#include <stdio.h>
-#include <unistd.h>
+#include "includes/ft_printf.h"
 
 int main()
 {
-	wchar_t = 249;
-	write(1, &c, 1);
+	ft_printf("Hello World!\n");
 	return 0;
 }

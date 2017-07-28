@@ -1,13 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
-
-int	ft_printf(const char *format, ...);
-int ft_vprintf(const char *format, va_list args);
-int parse_format(const char *format, va_list args);
-t_printf *parse_subfmt(const char *format, t_printf *list);
-t_plist *lstnew(t_printf data);
-t_plist *lstadd(t_plist *head, t_printf data);
+#include "libft.h"
 
 typedef enum	e_type
 {
@@ -47,6 +41,15 @@ typedef struct	s_printf
 
 typedef struct	s_plist
 {
-	t_printf	data;
-	t_printf	*next;
+	t_printf		*data;
+	struct s_plist	*next;
 }				t_plist;
+
+int	ft_printf(const char *format, ...);
+int ft_vprintf(const char *format, va_list args);
+int parse_format(const char *format, va_list args);
+int str_size(char *str);
+int print_buffer(t_plist *list);
+t_printf *parse_subfmt(char **format, va_list args);
+t_plist *lstnew(t_printf *data);
+t_plist *lstadd(t_plist *head, t_printf *data);
