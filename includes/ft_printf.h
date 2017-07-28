@@ -38,6 +38,7 @@ typedef struct	s_printf
 	//unsigned int is_char:1;	/* hh flag. */
 	//unsigned int wide:1;	/* Nonzero for wide character streams. */
 	//unsigned int i18n:1;	/* I flag. */
+	char *str;
 }				t_printf;
 
 // t_plist is a list of t_printf struct elemenents
