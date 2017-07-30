@@ -5,7 +5,7 @@
 
 // Enumeration of types returned by the format parser
 
-typedef enum	e_type
+typedef enum	e_argtype
 {
 	PA_INT,		/* int */
 	PA_CHAR,	/* int, cast to char */
@@ -16,20 +16,38 @@ typedef enum	e_type
 	PA_FLOAT,	/* float */
 	PA_DOUBLE,	/* double */
 	PA_LAST
-}				t_type;
+}				t_argtype;
 
 // Function pointer typedef
 
 typedef int (*t_func)(t_printf *print);
 
-t_func g_func_arr[] = {};
-
-// Calls the appropriate function for a chosen type
-
-typedef struct	s_handler
+typedef struct	s_dispatch
 {
-	t_type htype;
-	t_func hfunc;
+	t_type dtype;
+	t_func dfunc;
+}				t_dispatch;
+
+typedef union	u_type
+{
+	char *s;
+	char c;
+	unsigned char uc;
+	wchar_t wc;
+	wchar_t *ws;
+	signed char sc;
+	unsigned int ud;
+	unsigned long ul;
+	unsigned long long ull;
+	int d;
+	long ld;
+	long long lld;
+}				t_type;
+
+typedef union	u_handler
+{
+	t_dispatch cs;
+	t_type str;
 }				t_handler;
 
 typedef struct	s_printf
@@ -47,8 +65,7 @@ typedef struct	s_printf
 	//unsigned int group:1;	/* ' flag. */
 	//unsigned int is_char:1;	/* hh flag. */
 	//unsigned int wide:1;	/* Nonzero for wide character streams. */
-	//unsigned int i18n:1;	/* I flag. */
-	char *str;
+	//unsigned int i18n:1;	/* I flag. */r;
 }				t_printf;
 
 // t_plist is a list of t_printf struct elemenents
