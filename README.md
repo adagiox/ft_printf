@@ -4,11 +4,9 @@
 
 
 The format string is specified as follows:
-<p><code>%[flags][width][.precision][length]type</code></p>
+<p><code>%[flags][width][.precision][length][conversion specifier]</code></p>
 
 and is followed by a variable list of arguments to be printed to the standard output.
-
-ft_printf is implemented very similar to glibc's implementation by calling ft_vprintf.
 
 ft_printf handles:
 
@@ -16,6 +14,6 @@ ft_printf handles:
 <li>Flags: #0-+ and space</li>
 <li>Width</li>
 <li>Precision</li>
-<li>Length: hh, h, l, ll, j, and z.</li>
-<li>Types: sSpdDioOuUxXcC</li>
+<li>Length: hh, h, l, ll, j, and z</li>
+<li>Conversions: sSpdDioOuUxXcC</li>
 </ul>
