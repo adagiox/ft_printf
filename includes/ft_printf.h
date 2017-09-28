@@ -5,6 +5,7 @@
 
 int	ft_printf(const char *format, ...);
 int vprintf(const char *format, va_list args);
+int set_flags(const char *format, va_list args);
 
 typedef enum	e_type
 {
