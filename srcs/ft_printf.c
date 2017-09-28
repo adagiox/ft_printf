@@ -1,19 +1,19 @@
 #include "../includes/ft_printf.h"
 
 const t_type g_dispatch_table[] = {
-	{'s', convert_string},
+	{'s', convert_s},
 	// {'S', },
-	// {'p', },
-	{'d', convert_int},
+	{'p', convert_p},
+	{'d', convert_i},
 	// {'D', },
-	{'i', convert_int},
+	{'i', convert_i},
 	// {'o', },
 	// {'O', },
 	// {'u', },
 	// {'U', },
-	// {'x', },
+	{'x', convert_x},
 	// {'X', },
-	{'c', convert_char},
+	{'c', convert_c},
 	// {'C', },
 };
 
@@ -24,53 +24,103 @@ int print_info(t_printf *flags)
 		flags->is_char, flags->is_long, flags->is_longlong, flags->is_sizet, flags->intmax,
 		flags->alt, flags->space, flags->left, flags->showsign, flags->wide,
 		flags->pad);
-	return 1;
+	return (1);
 }
 
-int print_string(char *s, va_list args)
+int print_s(char *s)
 {
-	while (*s)
-	{
-		ft_putchar(*s);
-		s++;
-	}
-	return 1;
+	ft_putstr(s);
+	return (1);
 }
 
-int print_char(char c, va_list args)
+int print_c(char c)
 {
 	ft_putchar(c);
-	return 1;
+	return (1);
 }
 
-int print_int(int n, va_list args)
+int print_i(int n)
 {
 	ft_putnbr(n);
-	return 1;
+	return (1);
 }
 
-int convert_int(t_printf *flags, va_list args)
+int print_u(unsigned int n)
+{
+	
+	return (1);
+}
+
+int print_x(char *s)
+{
+	ft_putstr(s);
+	return (1);
+}
+
+int print_ud(unsigned int ud)
+{
+
+	return (1);
+}
+
+int convert_ud(t_printf *flags, va_list args)
+{
+	unsigned int ud;
+
+	ud = va_arg(args, unsigned int);
+	print_ud(ud);
+	return (1);
+}
+
+int convert_p(t_printf *flags, va_list args)
+{
+	flags->alt = 1;
+	convert_x(flags, args);
+	return (1);
+}
+
+int convert_x(t_printf *flags, va_list args)
+{
+	unsigned int n;
+	char *s;
+	if (flags->alt == 1)
+	{}
+
+	print_x(s);
+	return (1);
+}
+
+int convert_u(t_printf *flags, va_list args)
+{
+	unsigned int n;
+
+	n = va_arg(args, unsigned int);
+	print_u(n);
+	return (1);
+}
+
+int convert_i(t_printf *flags, va_list args)
 {
 	int n;
 
 	n = va_arg(args, int);
-	return (print_int(n, args));	
+	return (print_i(n));	
 }
 
-int convert_string(t_printf *flags, va_list args)
+int convert_s(t_printf *flags, va_list args)
 {
 	char *s;
 
 	s = va_arg(args, char *);
-	return (print_string(s, args));
+	return (print_s(s));
 }
 
-int convert_char(t_printf *flags, va_list args)
+int convert_c(t_printf *flags, va_list args)
 {
 	int c;
 
 	c = va_arg(args, int);
-	return (print_char(c, args));
+	return (print_c(c));
 }
 
 t_printf *init_flags()
@@ -95,7 +145,7 @@ t_printf *init_flags()
 	flags->showsign = 0;
 	flags->wide = 0;
 	flags->pad = 0;
-	return flags;
+	return (flags);
 }
 
 int do_conversion(const char **f, t_printf *flags, va_list args)
@@ -103,7 +153,7 @@ int do_conversion(const char **f, t_printf *flags, va_list args)
 	int i;
 
 	i = 0;
-	while (i < 13)
+	while (1)
 	{
 		if (flags->spec == g_dispatch_table[i].spec)
 		{
@@ -112,7 +162,7 @@ int do_conversion(const char **f, t_printf *flags, va_list args)
 		}
 		i++;
 	}
-	return 1;
+	return (1);
 }
 
 int set_spec(const char **f, t_printf *flags, va_list args)
@@ -121,6 +171,8 @@ int set_spec(const char **f, t_printf *flags, va_list args)
 		**f == 'i' || **f == 'o' || **f == 'O' || **f == 'u' || **f == 'U' || 
 		**f == 'x' || **f == 'X' || **f == 'c' || **f == 'C')
 		flags->spec = **f;
+	else
+		return (-1);
 	(*f)++;
 	return (do_conversion(f, flags, args));
 }
@@ -183,7 +235,7 @@ int set_flags(const char **f, va_list args)
 	if (**f == '%')
 	{
 		write(1, (*f)++, 1);
-		return 1;
+		return (1);
 	}
 	if ((flags = init_flags()) == NULL)
 		return -1;
@@ -213,7 +265,6 @@ int vprintf(const char *f, va_list args)
 			f++;
 			if (set_flags(&f, args) == -1)
 				return -1;
-			// print();
 		}
 		else
 		{
@@ -221,7 +272,7 @@ int vprintf(const char *f, va_list args)
 			f++;
 		}
 	}
-	return 1;
+	return (1);
 }
 
 int ft_printf(const char *f, ...)
@@ -242,5 +293,7 @@ int main(int argc, char **argv)
 	int n = -10;
 	//printf("The best programming language is... %c\n", c);
 	ft_printf("The best programming language is... %%\n%s\n%c\n%i\n%d\n", s, c, n, n);
-	return 1;
+	while (1)
+		usleep(100000);
+	return (1);
 }
