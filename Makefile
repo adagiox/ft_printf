@@ -1,4 +1,5 @@
-FILES =	ft_printf.c
+FILES =	ft_printf.c \
+		libft.c
 
 FLAGS = 
 
