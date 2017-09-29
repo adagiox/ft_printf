@@ -14,7 +14,7 @@
 typedef struct	s_printf
 {
 	int prec; /* Precision. */
-	int prec_set:1;
+	unsigned int prec_set:1;
 	int width; /* Width. */
 	char spec; /* Conversion specifer. */
 	int type; /* Argument type. */

@@ -16,9 +16,9 @@ $(NAME):
 	ar rcs $(NAME) *.o
 # 	//@gcc $(FILES) $(OBJ) $(FLAGS)
 
-# test: clean all
-# 	@gcc main.c
-# 	@./a.out
+test:
+	gcc $(SRC) srcs/main.c
+	./a.out
 
 clean:
 	rm $(NAME)

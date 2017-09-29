@@ -20,8 +20,8 @@ const t_type g_dispatch_table[] = {
 
 int print_info(t_printf *flags)
 {
-	printf("\nPRINT_INFO:\nprec: %i\nwidth: %i\nspec: %c\ntype: %i\nis_short: %i\nis_char: %i\nis_long: %i\nis_longlong: %i\nis_sizet: %i\nintmax: %i\nalt: %i\nspace: %i\nleft: %i\nshowsign: %i\nwide: %i\npad: %i\n", 
-		flags->prec, flags->width, flags->spec, flags->type, flags->is_short,
+	printf("\nPRINT_INFO:\nprec: %i\nprec_set: %i\nwidth: %i\nspec: %c\ntype: %i\nis_short: %i\nis_char: %i\nis_long: %i\nis_longlong: %i\nis_sizet: %i\nintmax: %i\nalt: %i\nspace: %i\nleft: %i\nshowsign: %i\nwide: %i\npad: %i\n", 
+		flags->prec, flags->prec_set, flags->width, flags->spec, flags->type, flags->is_short,
 		flags->is_char, flags->is_long, flags->is_longlong, flags->is_sizet, flags->intmax,
 		flags->alt, flags->space, flags->left, flags->showsign, flags->wide,
 		flags->pad);
@@ -44,19 +44,16 @@ int print_s(t_printf *flags, char *s)
 {
 	int num_char;
 
-	num_char = 0;
-	if (flags->width < flags->prec && flags->prec_set == 1)
-	{
-		flags->width = 0;
+	num_char = ft_strlen(s);
+	if (flags->prec < num_char && flags->prec_set == 1)
 		num_char = flags->prec;
-	}
-	else
+	else if (flags->prec > num_char && flags->prec_set == 1)
+		flags->prec = num_char;
+	if (num_char < flags->width)
 	{
-		num_char = ft_strlen(s);
-		num_char = (flags->prec < num_char ? flags->prec : num_char);
-		flags->width = (flags->width > num_char ? flags->width - num_char : flags->width - flags->prec);	
+		flags->width = flags->width - num_char;
+		pad_char(flags);
 	}
-	pad_char(flags);
 	ft_putnstr(s, num_char);
 	return (1);
 }
@@ -95,23 +92,23 @@ int print_i(int n)
 	return (1);
 }
 
-// int print_u(unsigned int n)
-// {
+int print_u(unsigned int n)
+{
 	
-// 	return (1);
-// }
+	return (1);
+}
 
-// int print_x(char *s)
-// {
-// 	ft_putstr(s);
-// 	return (1);
-// }
+int print_x(char *s)
+{
+	ft_putstr(s);
+	return (1);
+}
 
-// int print_ud(unsigned int ud)
-// {
+int print_ud(unsigned int ud)
+{
 
-// 	return (1);
-// }
+	return (1);
+}
 
 int print_wc(t_printf *flags, wchar_t wc)
 {
@@ -133,41 +130,41 @@ int print_wc(t_printf *flags, wchar_t wc)
 	return (1);
 }
 
-// int convert_ud(t_printf *flags, va_list args)
-// {
-// 	unsigned int ud;
+int convert_ud(t_printf *flags, va_list args)
+{
+	unsigned int ud;
 
-// 	ud = va_arg(args, unsigned int);
-// 	print_ud(ud);
-// 	return (1);
-// }
+	ud = va_arg(args, unsigned int);
+	print_ud(ud);
+	return (1);
+}
 
-// int convert_p(t_printf *flags, va_list args)
-// {
-// 	flags->alt = 1;
-// 	convert_x(flags, args);
-// 	return (1);
-// }
+int convert_p(t_printf *flags, va_list args)
+{
+	flags->alt = 1;
+	convert_x(flags, args);
+	return (1);
+}
 
-// int convert_x(t_printf *flags, va_list args)
-// {
-// 	unsigned int n;
-// 	char *s;
-// 	if (flags->alt == 1)
-// 	{}
+int convert_x(t_printf *flags, va_list args)
+{
+	unsigned int n;
+	char *s;
+	if (flags->alt == 1)
+	{}
 
-// 	print_x(s);
-// 	return (1);
-// }
+	print_x(s);
+	return (1);
+}
 
-// int convert_u(t_printf *flags, va_list args)
-// {
-// 	unsigned int n;
+int convert_u(t_printf *flags, va_list args)
+{
+	unsigned int n;
 
-// 	n = va_arg(args, unsigned int);
-// 	print_u(n);
-// 	return (1);
-// }
+	n = va_arg(args, unsigned int);
+	print_u(n);
+	return (1);
+}
 
 int convert_i(t_printf *flags, va_list args)
 {
@@ -231,8 +228,7 @@ t_printf *init_flags()
 {
 	t_printf *flags;
 
-	if ((flags = (t_printf *)malloc(sizeof(t_printf))) == NULL)
-		return NULL;
+	flags = (t_printf *)malloc(sizeof(t_printf));
 	flags->prec = 1;
 	flags->prec_set = 0;
 	flags->width = 0;
@@ -313,12 +309,12 @@ int set_prec(const char **f, t_printf *flags, va_list args)
 		if (ft_isdigit(**f))
 		{
 			flags->prec = ft_atoi(*f);
-			flags->prec_set = 1;
 			while (ft_isdigit(**f))
 				(*f)++;
 		}
 		else
 			flags->prec = 0;
+		flags->prec_set = 1;
 	}
 	return (set_length(f, flags, args));
 }
@@ -393,13 +389,3 @@ int ft_printf(const char *f, ...)
 	va_end(args);
 	return done;
 }
-
-// int main(int argc, char **argv)
-// {
-// 	setlocale(LC_ALL, "en_US");
-// 	printf("%1.s\n", "");
-// 	ft_printf("%1.s\n", "");
-// 	// while (1)
-// 	// {}
-// 	return (1);
-// }
