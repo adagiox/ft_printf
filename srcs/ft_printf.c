@@ -187,7 +187,11 @@ int convert_s(t_printf *flags, va_list args)
 		convert_ws(flags, args);	
 	else 
 	{
-		s = va_arg(args, char *);
+		if ((s = va_arg(args, char *)) == NULL)
+		{
+			ft_putstr("(null)");
+			return 1;
+		}
 		print_s(flags, s);
 	}
 	return (1);
