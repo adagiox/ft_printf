@@ -15,7 +15,7 @@ const t_type g_dispatch_table[] = {
 	{'x', convert_i},
 	{'X', convert_i},
 	{'c', convert_c},
-	{'C', convert_wc},
+	{'C', convert_c},
 };
 
 int print_info(t_printf *flags)
@@ -43,6 +43,8 @@ void pad_char(t_printf *flags)
 int print_s(t_printf *flags, char *s)
 {
 	int num_char;
+
+	num_char = 0;
 
 	if (flags->width < flags->prec)
 	{
