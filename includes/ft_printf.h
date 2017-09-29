@@ -17,7 +17,6 @@ typedef struct	s_printf
 	unsigned int prec_set:1;
 	int width; /* Width. */
 	char spec; /* Conversion specifer. */
-	int type; /* Argument type. */
 	char pad_char; /* Padding character. */
 	unsigned int is_short:1; /* h flag. */
 	unsigned int is_char:1; /* hh flag. */

@@ -20,8 +20,8 @@ const t_type g_dispatch_table[] = {
 
 int print_info(t_printf *flags)
 {
-	printf("\nPRINT_INFO:\nprec: %i\nprec_set: %i\nwidth: %i\nspec: %c\ntype: %i\nis_short: %i\nis_char: %i\nis_long: %i\nis_longlong: %i\nis_sizet: %i\nintmax: %i\nalt: %i\nspace: %i\nleft: %i\nshowsign: %i\nwide: %i\npad: %i\n", 
-		flags->prec, flags->prec_set, flags->width, flags->spec, flags->type, flags->is_short,
+	printf("\nPRINT_INFO:\nprec: %i\nprec_set: %i\nwidth: %i\nspec: %c\n\nis_short: %i\nis_char: %i\nis_long: %i\nis_longlong: %i\nis_sizet: %i\nintmax: %i\nalt: %i\nspace: %i\nleft: %i\nshowsign: %i\nwide: %i\npad: %i\n", 
+		flags->prec, flags->prec_set, flags->width, flags->spec, flags->is_short,
 		flags->is_char, flags->is_long, flags->is_longlong, flags->is_sizet, flags->intmax,
 		flags->alt, flags->space, flags->left, flags->showsign, flags->wide,
 		flags->pad);
@@ -52,9 +52,18 @@ int print_s(t_printf *flags, char *s)
 	if (num_char < flags->width)
 	{
 		flags->width = flags->width - num_char;
+		
+	}
+	if (flags->left == 1)
+	{
+		ft_putnstr(s, num_char);
 		pad_char(flags);
 	}
-	ft_putnstr(s, num_char);
+	else 
+	{
+		pad_char(flags);
+		ft_putnstr(s, num_char);
+	}
 	return (1);
 }
 
@@ -233,7 +242,6 @@ t_printf *init_flags()
 	flags->prec_set = 0;
 	flags->width = 0;
 	flags->spec = '0';
-	flags->type = 0;
 	flags->pad_char = ' ';
 	flags->is_short = 0;
 	flags->is_char = 0;
@@ -355,7 +363,6 @@ int set_flags(const char **f, va_list args)
 		(*f)++;
 	}
 	set_width(f, flags, args);
-	//print_info(flags);
 	free(flags);
 	return (1);
 }
