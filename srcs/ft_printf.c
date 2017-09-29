@@ -50,10 +50,7 @@ int print_s(t_printf *flags, char *s)
 	else if (flags->prec > num_char && flags->prec_set == 1)
 		flags->prec = num_char;
 	if (num_char < flags->width)
-	{
 		flags->width = flags->width - num_char;
-		
-	}
 	if (flags->left == 1)
 	{
 		ft_putnstr(s, num_char);
@@ -79,6 +76,7 @@ int print_c(t_printf *flags, char c)
 {
 	if (flags->width > 1)
 	{
+		flags->width = flags->width - 1;
 		if (flags->left == 1)
 		{
 			ft_putchar(c);
