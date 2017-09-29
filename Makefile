@@ -1,21 +1,25 @@
+NAME = libftprintf.a
+
 FILES =	ft_printf.c \
 		libft.c
 
-FLAGS = 
-
-OBJ = $(FILES:%.c=%.o)
+FLAGS = -Wall -Werror -Wextra -c
 
 SRC = $(addprefix srcs/, $(FILES))
 
+OBJ = $(SRC:srcs/%=%.o)
 
-all:
-	gcc $(SRC) $(FLAGS)
-# 	//ar crs
+all: $(NAME)
+
+$(NAME):
+	gcc $(FLAGS) $(SRC)
+	ar rcs $(NAME) *.o
 # 	//@gcc $(FILES) $(OBJ) $(FLAGS)
 
 # test: clean all
 # 	@gcc main.c
 # 	@./a.out
 
-# clean:
-# 	-rm -f a.out
+clean:
+	rm $(NAME)
+	rm *.o
