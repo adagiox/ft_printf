@@ -4,16 +4,16 @@
 const t_type g_dispatch_table[] = {
 	{'s', convert_s},
 	{'S', convert_ws},
-	// {'p', convert_p},
-	// {'d', convert_i},
-	// {'D', },
-	// {'i', convert_i},
-	// {'o', },
-	// {'O', },
-	// {'u', },
-	// {'U', },
-	// {'x', convert_x},
-	// {'X', },
+	{'p', convert_p},
+	{'d', convert_i},
+	{'D', convert_i},
+	{'i', convert_i},
+	{'o', convert_i},
+	{'O', convert_i},
+	{'u', convert_i},
+	{'U', convert_i},
+	{'x', convert_x},
+	{'X', convert_i},
 	{'c', convert_c},
 	{'C', convert_wc},
 };
@@ -168,13 +168,14 @@ int print_wc(t_printf *flags, wchar_t wc)
 // 	return (1);
 // }
 
-// int convert_i(t_printf *flags, va_list args)
-// {
-// 	int n;
+int convert_i(t_printf *flags, va_list args)
+{
+	int n;
 
-// 	n = va_arg(args, int);
-// 	return (print_i(n));	
-// }
+	(void)flags;
+	n = va_arg(args, int);
+	return (1);	
+}
 
 int convert_s(t_printf *flags, va_list args)
 {
