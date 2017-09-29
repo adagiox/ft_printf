@@ -46,7 +46,7 @@ int print_s(t_printf *flags, char *s)
 
 	num_char = 0;
 
-	if (flags->width < flags->prec)
+	if (flags->width < flags->prec && flags->width)
 	{
 		flags->width = 0;
 		num_char = flags->prec;
