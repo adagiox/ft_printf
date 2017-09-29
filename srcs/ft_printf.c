@@ -4,7 +4,7 @@
 const t_type g_dispatch_table[] = {
 	{'s', convert_s},
 	{'S', convert_ws},
-	{'p', convert_p},
+	{'p', convert_i},
 	{'d', convert_i},
 	{'D', convert_i},
 	{'i', convert_i},
@@ -12,7 +12,7 @@ const t_type g_dispatch_table[] = {
 	{'O', convert_i},
 	{'u', convert_i},
 	{'U', convert_i},
-	{'x', convert_x},
+	{'x', convert_i},
 	{'X', convert_i},
 	{'c', convert_c},
 	{'C', convert_wc},
