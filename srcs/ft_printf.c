@@ -45,8 +45,7 @@ int print_s(t_printf *flags, char *s)
 	int num_char;
 
 	num_char = 0;
-	num_char = ft_strlen(s);
-	if (flags->width < flags->prec)
+	if (flags->width < flags->prec && flags->prec_set == 1)
 	{
 		flags->width = 0;
 		num_char = flags->prec;
@@ -235,6 +234,7 @@ t_printf *init_flags()
 	if ((flags = (t_printf *)malloc(sizeof(t_printf))) == NULL)
 		return NULL;
 	flags->prec = 1;
+	flags->prec_set = 0;
 	flags->width = 0;
 	flags->spec = '0';
 	flags->type = 0;
@@ -313,6 +313,7 @@ int set_prec(const char **f, t_printf *flags, va_list args)
 		if (ft_isdigit(**f))
 		{
 			flags->prec = ft_atoi(*f);
+			flags->prec_set = 1;
 			while (ft_isdigit(**f))
 				(*f)++;
 		}
