@@ -45,8 +45,8 @@ int print_s(t_printf *flags, char *s)
 	int num_char;
 
 	num_char = 0;
-
-	if (flags->width < flags->prec && flags->width)
+	num_char = ft_strlen(s);
+	if (flags->width < flags->prec)
 	{
 		flags->width = 0;
 		num_char = flags->prec;
