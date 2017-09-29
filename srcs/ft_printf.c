@@ -93,6 +93,27 @@ int print_c(t_printf *flags, char c)
 	return (1);
 }
 
+int print_wc(t_printf *flags, wchar_t wc)
+{
+	if (flags->width > 1)
+	{
+		flags->width = flags->width - 1;
+		if (flags->left == 1)
+		{
+			ft_wputchar(c);
+			pad_char(flags);
+		}
+		else
+		{
+			pad_char(flags);
+			ft_wputchar(c);
+		}
+	}
+	else
+		ft_wputchar(c);
+	return (1);
+}
+
 int print_i(int n)
 {
 	ft_putnbr(n);
@@ -114,26 +135,6 @@ int print_x(char *s)
 int print_ud(unsigned int ud)
 {
 
-	return (1);
-}
-
-int print_wc(t_printf *flags, wchar_t wc)
-{
-	if (flags->width > 1)
-	{
-		if (flags->left == 1)
-		{
-			ft_wputchar(wc);
-			pad_char(flags);
-		}
-		else
-		{
-			pad_char(flags);
-			ft_wputchar(wc);
-		}
-	}
-	else
-		ft_wputchar(wc);
 	return (1);
 }
 
