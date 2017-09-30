@@ -3,3 +3,7 @@ notes
 *.swp
 *.o
 *.a
+.DS_Store
+._DS_Store
+includes/.DS_Store
+includes/._DS_Store
