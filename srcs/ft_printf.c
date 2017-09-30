@@ -194,7 +194,6 @@ int convert_i(t_printf *flags, va_list args)
 {
 	int n;
 
-	(void)flags;
 	n = va_arg(args, int);
 	return (1);	
 }
