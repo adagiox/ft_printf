@@ -40,6 +40,71 @@ void pad_char(t_printf *flags)
 	}
 }
 
+int print_i(t_printf *flags, long long int i)
+{
+	int num_char;
+
+	num_char = ft_countdigits(i);
+	printf("ft_countdigits: %i\n", num_char);
+	if (flags->is_int)
+		i = (int)i;
+	else if (flags->is_short)
+		i = (short)i;
+	else if (flags->is_char)
+		i = (char)i;
+	if (flags->prec < flags->width && num_char > flags->prec && flags->prec_set)
+		flags->pad_char = '0';
+	if (num_char < flags->width)
+		flags->width = flags->width - num_char;
+	if (flags->left)
+	{
+		if (i < 0)
+		{
+			ft_putchar('-');
+			i = -i;
+			flags->width--;
+		}
+		ft_uputnbr(i);
+		pad_char(flags);
+	}
+	else
+	{
+		if (i < 0)
+		{
+			if (flags->pad_char == ' ')
+			{
+				flags->width--;
+				pad_char(flags);
+				ft_putchar('-');
+				i = -i;
+				ft_uputnbr(i);
+				return (1);
+			}
+			ft_putchar('-');
+			i = -i;
+			flags->width--;
+		}
+		pad_char(flags);
+		ft_uputnbr(i);
+	}
+	return (1);
+}
+
+int print_u(t_printf *flags, unsigned long long i)
+{
+	int num_char;
+
+	num_char = ft_ucountdigits(i);
+	if (flags->is_int)
+		i = (unsigned int)i;
+	else if (flags->is_short)
+		i = (unsigned short)i;
+	else if (flags->is_char)
+		i = (unsigned char)i;
+	ft_uputnbr(i);
+	return (1);
+}
+
 int print_s(t_printf *flags, char *s)
 {
 	int num_char;
@@ -130,29 +195,7 @@ int print_wc(t_printf *flags, wchar_t wc)
 	return (1);
 }
 
-int print_i(t_printf *flags, long long int i)
-{
-	if (flags->is_int)
-		i = (int)i;
-	else if (flags->is_short)
-		i = (short)i;
-	else if (flags->is_char)
-		i = (char)i;
-	ft_putnbr(i);
-	return (1);
-}
 
-int print_u(t_printf *flags, unsigned long long i)
-{
-	if (flags->is_int)
-		i = (unsigned int)i;
-	else if (flags->is_short)
-		i = (unsigned short)i;
-	else if (flags->is_char)
-		i = (unsigned char)i;
-	ft_uputnbr(i);
-	return (1);
-}
 
 int print_x(unsigned long long int i)
 {

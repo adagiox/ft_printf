@@ -81,7 +81,7 @@ void	ft_uputnbr(unsigned long long int i)
 		return ;
 	}
 	if (i / 10)
-		ft_putnbr(i / 10);
+		ft_uputnbr(i / 10);
 	ft_putchar(i % 10 + '0');
 }
 
@@ -106,6 +106,37 @@ void	ft_putnbr(long long int i)
 	if (i / 10)
 		ft_putnbr(i / 10);
 	ft_putchar(i % 10 + '0');
+}
+
+int ft_countdigits(long long int i)
+{
+	int count;
+
+	count = 0;
+	if (i < 0)
+	{
+		count++;
+		i = -i;
+	}
+	while (i)
+	{
+		i /= 10;
+		count++;
+	}
+	return (count);
+}
+
+int ft_ucountdigits(unsigned long long int i)
+{
+	int count;
+
+	count = 0;
+while (i)
+	{
+		i /= 10;
+		count++;
+	}
+	return (count);	
 }
 
 int	ft_isdigit(int c)

@@ -3,8 +3,8 @@
 
 int main (int argc, char **argv)
 {
-	char *f = "%D\n"; 
-	long long int i = 4294959296;
+	char *f = "%5.2i\n"; 
+	long long int i = -42;
 	printf(f, i);
 	//printf(f, i);
 	ft_printf(f, i);
