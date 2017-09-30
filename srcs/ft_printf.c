@@ -150,7 +150,7 @@ int print_u(t_printf *flags, unsigned long long i)
 		i = (unsigned short)i;
 	if (flags->is_char)
 		i = (unsigned char)i;
-	ft_putnbr(i);
+	ft_uputnbr(i);
 	return (1);
 }
 
