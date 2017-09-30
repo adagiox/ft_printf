@@ -3,7 +3,7 @@
 
 int main (int argc, char **argv)
 {
-	char *f = "%lli\n"; 
+	char *f = "%D\n"; 
 	long long int i = 4294959296;
 	printf(f, i);
 	//printf(f, i);

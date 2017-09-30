@@ -20,11 +20,11 @@ const t_type g_dispatch_table[] = {
 
 int print_info(t_printf *flags)
 {
-	printf("\nPRINT_INFO:\nprec: %i\nprec_set: %i\nwidth: %i\nspec: %c\n\nis_short: %i\nis_char: %i\nis_long: %i\nis_longlong: %i\nis_sizet: %i\nintmax: %i\nalt: %i\nspace: %i\nleft: %i\nshowsign: %i\nwide: %i\npad: %i\n", 
+	printf("\nPRINT_INFO:\nprec: %i\nprec_set: %i\nwidth: %i\nspec: %c\n\nis_short: %i\nis_char: %i\nis_long: %i\nis_longlong: %i\nis_sizet: %i\nintmax: %i\nalt: %i\nspace: %i\nleft: %i\nshowsign: %i\nwide: %i\npad: %i\nis_int: %i\n", 
 		flags->prec, flags->prec_set, flags->width, flags->spec, flags->is_short,
 		flags->is_char, flags->is_long, flags->is_longlong, flags->is_sizet, flags->intmax,
 		flags->alt, flags->space, flags->left, flags->showsign, flags->wide,
-		flags->pad);
+		flags->pad, flags->is_int);
 	return (1);
 }
 
@@ -301,7 +301,10 @@ int set_spec(const char **f, t_printf *flags, va_list args)
 		return (-1);
 	(*f)++;
 	if (flags->spec == 'D')
-		flags->is_int = 1;
+	{
+		flags->is_long = 1;
+		flags->is_int = 0;
+	}
 	return (do_conversion(flags, args));
 }
 
