@@ -130,14 +130,22 @@ int print_wc(t_printf *flags, wchar_t wc)
 	return (1);
 }
 
-int print_i(long long int i)
+int print_i(t_printf *flags, long long int i)
 {
+	if (flags->is_char)
+		i = (char)i;
+	if (flags->is_short)
+		i = (short)i;
 	ft_putnbr(i);
 	return (1);
 }
 
-int print_u(unsigned long long i)
+int print_u(t_printf *flags, unsigned long long i)
 {
+	if (flags->is_char)
+		i = (unsigned char)i;
+	if (flags->is_short)
+		i = (unsigned short)i;
 	ft_putnbr(i);
 	return (1);
 }
@@ -185,7 +193,7 @@ int convert_u(t_printf *flags, va_list args)
 	unsigned long long int u;
 
 	u = va_arg(args, unsigned long long int);
-	print_u(u);
+	print_u(flags, u);
 	return (1);
 }
 
@@ -194,7 +202,7 @@ int convert_i(t_printf *flags, va_list args)
 	long long int i;
 
 	i = va_arg(args, long long int);
-	print_i(i);
+	print_i(flags, i);
 	return (1);
 }
 
@@ -349,6 +357,10 @@ int set_prec(const char **f, t_printf *flags, va_list args)
 
 int set_width(const char **f, t_printf *flags, va_list args)
 {
+	if (flags->space && flags->pad)
+		flags->pad = 0;
+	if (flags->showsign && flags->space)
+		flags->space = 0;
 	if (ft_isdigit(**f))
 	{
 		flags->width = ft_atoi(*f);

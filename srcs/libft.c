@@ -73,6 +73,18 @@ void ft_wputnstr(wchar_t *ws, int n)
 	}
 }
 
+void	ft_uputnbr(unsigned long long int i)
+{
+	if (i == 0)
+	{
+		ft_putchar('0');
+		return ;
+	}
+	if (i / 10)
+		ft_putnbr(i / 10);
+	ft_putchar(i % 10 + '0');
+}
+
 void	ft_putnbr(long long int i)
 {
 	if (i == 0)
@@ -82,7 +94,7 @@ void	ft_putnbr(long long int i)
 	}
 	if (i < 0)
 	{
-		if (i == -2147483648)
+		if (i < -9223372036854775807)
 		{
 			ft_putnbr(i / 10);
 			ft_putchar('8');
