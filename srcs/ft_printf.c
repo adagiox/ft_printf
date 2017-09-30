@@ -134,9 +134,9 @@ int print_i(t_printf *flags, long long int i)
 {
 	if (flags->is_int)
 		i = (int)i;
-	if (flags->is_short)
+	else if (flags->is_short)
 		i = (short)i;
-	if (flags->is_char)
+	else if (flags->is_char)
 		i = (char)i;
 	ft_putnbr(i);
 	return (1);
@@ -146,9 +146,9 @@ int print_u(t_printf *flags, unsigned long long i)
 {
 	if (flags->is_int)
 		i = (unsigned int)i;
-	if (flags->is_short)
+	else if (flags->is_short)
 		i = (unsigned short)i;
-	if (flags->is_char)
+	else if (flags->is_char)
 		i = (unsigned char)i;
 	ft_uputnbr(i);
 	return (1);
@@ -156,21 +156,6 @@ int print_u(t_printf *flags, unsigned long long i)
 
 int print_x(unsigned long long int i)
 {
-	return (1);
-}
-
-int print_ud(unsigned int ud)
-{
-
-	return (1);
-}
-
-int convert_ud(t_printf *flags, va_list args)
-{
-	unsigned int ud;
-
-	ud = va_arg(args, unsigned int);
-	print_ud(ud);
 	return (1);
 }
 
@@ -262,15 +247,6 @@ int convert_c(t_printf *flags, va_list args)
 	}
 	return (1);
 }
-
-// int convert_lc(t_printf *flags, va_list args)
-// {
-// 	int c;
-
-// 	c = va_arg(args, int);
-// 	print_c()
-
-// }
 
 t_printf *init_flags()
 {
