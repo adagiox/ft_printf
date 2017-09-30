@@ -136,6 +136,8 @@ int print_i(t_printf *flags, long long int i)
 		i = (char)i;
 	if (flags->is_short)
 		i = (short)i;
+	if (flags->is_int)
+		i = (int)i;
 	ft_putnbr(i);
 	return (1);
 }
@@ -146,6 +148,8 @@ int print_u(t_printf *flags, unsigned long long i)
 		i = (unsigned char)i;
 	if (flags->is_short)
 		i = (unsigned short)i;
+	if (flags->is_int)
+		i = (unsigned int)i;
 	ft_putnbr(i);
 	return (1);
 }
@@ -281,6 +285,7 @@ t_printf *init_flags()
 	flags->showsign = 0;
 	flags->wide = 0;
 	flags->pad = 0;
+	flags->is_int = 1;
 	return (flags);
 }
 
@@ -329,9 +334,15 @@ int set_length(const char **f, t_printf *flags, va_list args)
 		flags->is_long = 1;
 	if (flags->is_short == 1 || flags->is_long == 1 || flags->intmax == 1 ||
 		flags->is_sizet == 1)
+	{
+		flags->is_int = 0;
 		(*f)++;
+	}
 	else if (flags->is_char == 1 || flags->is_longlong == 1)
+	{
+		flags->is_int = 0;
 		(*f) += 2;
+	}
 	if (flags->is_long == 1 || flags->is_longlong == 1 || flags->is_sizet == 1)
 		flags->intmax = 1;
 	return (set_spec(f, flags, args));

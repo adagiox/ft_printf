@@ -26,6 +26,7 @@ typedef struct	s_printf
 	unsigned int showsign:1; /* + flag. */
 	unsigned int wide:1; /* Nonzero for wide character streams. */
 	unsigned int pad:1; /* Padding flag. */
+	unsigned int is_int:1;
 }				t_printf;
 
 typedef int dispatcher(t_printf *flags, va_list args);
