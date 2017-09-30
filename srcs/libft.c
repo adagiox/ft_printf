@@ -73,27 +73,27 @@ void ft_wputnstr(wchar_t *ws, int n)
 	}
 }
 
-void	ft_putnbr(int n)
+void	ft_putnbr(long long int i)
 {
-	if (n == 0)
+	if (i == 0)
 	{
 		ft_putchar('0');
 		return ;
 	}
-	if (n < 0)
+	if (i < 0)
 	{
-		if (n == -2147483648)
+		if (i == -2147483648)
 		{
-			ft_putnbr(n / 10);
+			ft_putnbr(i / 10);
 			ft_putchar('8');
 			return ;
 		}
 		ft_putchar('-');
-		n = -n;
+		i = -i;
 	}
-	if (n / 10)
-		ft_putnbr(n / 10);
-	ft_putchar(n % 10 + '0');
+	if (i / 10)
+		ft_putnbr(i / 10);
+	ft_putchar(i % 10 + '0');
 }
 
 int	ft_isdigit(int c)
@@ -105,11 +105,11 @@ int	ft_isdigit(int c)
 
 int		ft_wclen(wchar_t wc)
 {
-	if ((unsigned int)wc < ONE_BYTE)
+	if ((unsigned int)wc < 128)
 		return (1);
-	else if ((unsigned int)wc < TWO_BYTE)
+	else if ((unsigned int)wc < 2048)
 		return (2);
-	else if ((unsigned int)wc < THREE_BYTE)
+	else if ((unsigned int)wc < 65536)
 		return (3);
 	else
 		return (4);
@@ -145,15 +145,15 @@ int		ft_wputstr(wchar_t *ws)
 
 int		ft_wputchar(wchar_t wc)
 {
-	if ((unsigned int)wc < ONE_BYTE)
+	if ((unsigned int)wc < 128)
 		ft_putchar((unsigned int)wc);
-	else if ((unsigned int)wc < TWO_BYTE)
+	else if ((unsigned int)wc < 2048)
 	{
 		ft_putchar(((unsigned int)wc >> 6) | 192);
 		ft_putchar(((unsigned int)wc & 63) | 128);
 		return (2);
 	}
-	else if ((unsigned int)wc < THREE_BYTE)
+	else if ((unsigned int)wc < 65536)
 	{
 		ft_putchar(((unsigned int)wc >> 12) | 224);
 		ft_putchar((((unsigned int)wc >> 6) & 63) | 128);

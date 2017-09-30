@@ -4,16 +4,16 @@
 const t_type g_dispatch_table[] = {
 	{'s', convert_s},
 	{'S', convert_ws},
-	{'p', convert_i},
+	{'p', convert_u},
 	{'d', convert_i},
 	{'D', convert_i},
 	{'i', convert_i},
-	{'o', convert_i},
-	{'O', convert_i},
-	{'u', convert_i},
-	{'U', convert_i},
-	{'x', convert_i},
-	{'X', convert_i},
+	{'o', convert_u},
+	{'O', convert_u},
+	{'u', convert_u},
+	{'U', convert_u},
+	{'x', convert_u},
+	{'X', convert_u},
 	{'c', convert_c},
 	{'C', convert_c},
 };
@@ -130,21 +130,20 @@ int print_wc(t_printf *flags, wchar_t wc)
 	return (1);
 }
 
-int print_i(int n)
+int print_i(long long int i)
 {
-	ft_putnbr(n);
+	ft_putnbr(i);
 	return (1);
 }
 
-int print_u(unsigned int n)
+int print_u(unsigned long long i)
 {
-	
+	ft_putnbr(i);
 	return (1);
 }
 
-int print_x(char *s)
+int print_x(unsigned long long int i)
 {
-	ft_putstr(s);
 	return (1);
 }
 
@@ -172,30 +171,31 @@ int convert_p(t_printf *flags, va_list args)
 
 int convert_x(t_printf *flags, va_list args)
 {
-	unsigned int n;
+	unsigned long long int n = 1;
 	char *s;
-	if (flags->alt == 1)
-	{}
+	// if (flags->alt == 1)
+	// {}
 
-	print_x(s);
+	print_x(n);
 	return (1);
 }
 
 int convert_u(t_printf *flags, va_list args)
 {
-	unsigned int n;
+	unsigned long long int u;
 
-	n = va_arg(args, unsigned int);
-	print_u(n);
+	u = va_arg(args, unsigned long long int);
+	print_u(u);
 	return (1);
 }
 
 int convert_i(t_printf *flags, va_list args)
 {
-	int n;
+	long long int i;
 
-	n = va_arg(args, int);
-	return (1);	
+	i = va_arg(args, long long int);
+	print_i(i);
+	return (1);
 }
 
 int convert_s(t_printf *flags, va_list args)
@@ -220,7 +220,11 @@ int convert_ws(t_printf *flags, va_list args)
 {
 	wchar_t *ws;
 
-	ws = va_arg(args, wchar_t *);
+	if ((ws = va_arg(args, wchar_t *)) == NULL)
+	{
+		ft_putstr("(null)");
+		return 1;
+	}
 	print_ws(flags, ws);
 	return 1;
 }
@@ -320,6 +324,8 @@ int set_length(const char **f, t_printf *flags, va_list args)
 		(*f)++;
 	else if (flags->is_char == 1 || flags->is_longlong == 1)
 		(*f) += 2;
+	if (flags->is_long == 1 || flags->is_longlong == 1 || flags->is_sizet == 1)
+		flags->intmax = 1;
 	return (set_spec(f, flags, args));
 }
 
