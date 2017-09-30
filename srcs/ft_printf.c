@@ -132,24 +132,24 @@ int print_wc(t_printf *flags, wchar_t wc)
 
 int print_i(t_printf *flags, long long int i)
 {
-	if (flags->is_char)
-		i = (char)i;
-	if (flags->is_short)
-		i = (short)i;
 	if (flags->is_int)
 		i = (int)i;
+	if (flags->is_short)
+		i = (short)i;
+	if (flags->is_char)
+		i = (char)i;
 	ft_putnbr(i);
 	return (1);
 }
 
 int print_u(t_printf *flags, unsigned long long i)
 {
-	if (flags->is_char)
-		i = (unsigned char)i;
-	if (flags->is_short)
-		i = (unsigned short)i;
 	if (flags->is_int)
 		i = (unsigned int)i;
+	if (flags->is_short)
+		i = (unsigned short)i;
+	if (flags->is_char)
+		i = (unsigned char)i;
 	ft_putnbr(i);
 	return (1);
 }
