@@ -8,5 +8,5 @@ int main (int argc, char **argv)
 	printf(f, i);
 	//printf(f, i);
 	ft_printf(f, i);
-	return 1;
+	return 0;
 }

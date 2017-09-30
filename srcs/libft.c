@@ -39,7 +39,7 @@ int	ft_atoi(const char *str)
 	return (nbr * sign);
 }
 
-void ft_putchar(char c)
+void ft_putchar(int c)
 {
 	write(1, &c, 1);
 }
