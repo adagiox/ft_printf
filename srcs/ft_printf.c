@@ -88,7 +88,7 @@ int print_ws(t_printf *flags, wchar_t *ws)
 	return (1);
 }
 
-int print_c(t_printf *flags, char c)
+int print_c(t_printf *flags, int c)
 {
 	if (flags->width > 1)
 	{
@@ -262,6 +262,15 @@ int convert_c(t_printf *flags, va_list args)
 	}
 	return (1);
 }
+
+// int convert_lc(t_printf *flags, va_list args)
+// {
+// 	int c;
+
+// 	c = va_arg(args, int);
+// 	print_c()
+
+// }
 
 t_printf *init_flags()
 {

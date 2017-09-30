@@ -57,7 +57,7 @@ int vprintf(const char *f, va_list args);
 int print_info(t_printf *flags);
 void pad_char(t_printf *flags);
 int print_s(t_printf *flags, char *s);
-int print_c(t_printf *flags, char c);
+int print_c(t_printf *flags, int c);
 int print_i(t_printf *flags, long long int i);
 int print_u(t_printf *flags, unsigned long long int u);
 int print_x(unsigned long long int i);
