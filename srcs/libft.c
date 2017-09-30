@@ -63,6 +63,16 @@ void ft_putnstr(char *s, int n)
 	}
 }
 
+void ft_wputnstr(wchar_t *ws, int n)
+{
+	while (*ws && n)
+	{
+		ft_wputchar(*ws);
+		ws++;
+		n--;
+	}
+}
+
 void	ft_putnbr(int n)
 {
 	if (n == 0)

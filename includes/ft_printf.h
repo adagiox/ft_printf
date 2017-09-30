@@ -47,6 +47,7 @@ void ft_putchar(char c);
 void ft_putnbr(int n);
 void ft_putstr(char *s);
 void ft_putnstr(char *s, int n);
+void ft_wputnstr(wchar_t *ws, int n);
 int		ft_wstrlen(wchar_t *ws);
 int		ft_wclen(wchar_t wc);
 int		ft_wputstr(wchar_t *ws);

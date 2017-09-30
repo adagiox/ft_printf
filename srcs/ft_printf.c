@@ -66,10 +66,26 @@ int print_s(t_printf *flags, char *s)
 
 int print_ws(t_printf *flags, wchar_t *ws)
 {
-	if (flags->alt == 1)
-	{}
-	ft_wputstr(ws);
-	return 1;
+	int num_char;
+
+	num_char = ft_wstrlen(ws);
+	if (flags->prec < num_char && flags->prec_set == 1)
+		num_char = flags->prec;
+	else if (flags->prec > num_char && flags->prec_set == 1)
+		flags->prec = num_char;
+	if (num_char < flags->width)
+		flags->width = flags->width - num_char;
+	if (flags->left == 1)
+	{
+		ft_wputnstr(ws, num_char);
+		pad_char(flags);
+	}
+	else 
+	{
+		pad_char(flags);
+		ft_wputnstr(ws, num_char);
+	}
+	return (1);
 }
 
 int print_c(t_printf *flags, char c)
@@ -100,17 +116,17 @@ int print_wc(t_printf *flags, wchar_t wc)
 		flags->width = flags->width - 1;
 		if (flags->left == 1)
 		{
-			ft_wputchar(c);
+			ft_wputchar(wc);
 			pad_char(flags);
 		}
 		else
 		{
 			pad_char(flags);
-			ft_wputchar(c);
+			ft_wputchar(wc);
 		}
 	}
 	else
-		ft_wputchar(c);
+		ft_wputchar(wc);
 	return (1);
 }
 
