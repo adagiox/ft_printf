@@ -301,7 +301,7 @@ int set_spec(const char **f, t_printf *flags, va_list args)
 		return (-1);
 	(*f)++;
 	if (flags->spec == 'D')
-		flags->is_long = 1;
+		flags->is_int = 1;
 	return (do_conversion(flags, args));
 }
 
