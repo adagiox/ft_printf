@@ -28,11 +28,8 @@ int print_info(t_printf *flags)
 	return (1);
 }
 
-void pad_char(t_printf *flags)
+void pad_n(t_printf *flags, int n)
 {
-	int n;
-
-	n = flags->width;
 	while (n)
 	{
 		ft_putchar(flags->pad_char);
@@ -40,53 +37,27 @@ void pad_char(t_printf *flags)
 	}
 }
 
-int print_i(t_printf *flags, long long int i)
+int format_i(t_printf *flags, long long int i)
 {
 	int num_char;
 
 	num_char = ft_countdigits(i);
-	printf("ft_countdigits: %i\n", num_char);
+	if (flags->prec < flags->width && num_char > flags->prec && flags->prec_set)
+		flags->pad_char = '0';
+	if (num_char < flags->width)
+		flags->width = flags->width - num_char;
+	return (1);
+}
+
+int print_i(t_printf *flags, long long int i)
+{
 	if (flags->is_int)
 		i = (int)i;
 	else if (flags->is_short)
 		i = (short)i;
 	else if (flags->is_char)
 		i = (char)i;
-	if (flags->prec < flags->width && num_char > flags->prec && flags->prec_set)
-		flags->pad_char = '0';
-	if (num_char < flags->width)
-		flags->width = flags->width - num_char;
-	if (flags->left)
-	{
-		if (i < 0)
-		{
-			ft_putchar('-');
-			i = -i;
-			flags->width--;
-		}
-		ft_uputnbr(i);
-		pad_char(flags);
-	}
-	else
-	{
-		if (i < 0)
-		{
-			if (flags->pad_char == ' ')
-			{
-				flags->width--;
-				pad_char(flags);
-				ft_putchar('-');
-				i = -i;
-				ft_uputnbr(i);
-				return (1);
-			}
-			ft_putchar('-');
-			i = -i;
-			flags->width--;
-		}
-		pad_char(flags);
-		ft_uputnbr(i);
-	}
+	
 	return (1);
 }
 
@@ -119,11 +90,11 @@ int print_s(t_printf *flags, char *s)
 	if (flags->left == 1)
 	{
 		ft_putnstr(s, num_char);
-		pad_char(flags);
+		pad_n(flags, flags->width);
 	}
 	else 
 	{
-		pad_char(flags);
+		pad_n(flags, flags->width);
 		ft_putnstr(s, num_char);
 	}
 	return (1);
@@ -143,11 +114,11 @@ int print_ws(t_printf *flags, wchar_t *ws)
 	if (flags->left == 1)
 	{
 		ft_wputnstr(ws, num_char);
-		pad_char(flags);
+		pad_n(flags, flags->width);
 	}
 	else 
 	{
-		pad_char(flags);
+		pad_n(flags, flags->width);
 		ft_wputnstr(ws, num_char);
 	}
 	return (1);
@@ -161,11 +132,11 @@ int print_c(t_printf *flags, int c)
 		if (flags->left == 1)
 		{
 			ft_putchar(c);
-			pad_char(flags);
+			pad_n(flags, flags->width);
 		}
 		else
 		{
-			pad_char(flags);
+			pad_n(flags, flags->width);
 			ft_putchar(c);
 		}
 	}
@@ -182,11 +153,11 @@ int print_wc(t_printf *flags, wchar_t wc)
 		if (flags->left == 1)
 		{
 			ft_wputchar(wc);
-			pad_char(flags);
+			pad_n(flags, flags->width);
 		}
 		else
 		{
-			pad_char(flags);
+			pad_n(flags, flags->width);
 			ft_wputchar(wc);
 		}
 	}
@@ -194,8 +165,6 @@ int print_wc(t_printf *flags, wchar_t wc)
 		ft_wputchar(wc);
 	return (1);
 }
-
-
 
 int print_x(unsigned long long int i)
 {

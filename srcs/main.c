@@ -3,10 +3,10 @@
 
 int main (int argc, char **argv)
 {
-	char *f = "%5.2i\n"; 
-	long long int i = -42;
+	char *f = "%+6.3i\n"; 
+	long long int i = 42;
 	printf(f, i);
 	//printf(f, i);
-	ft_printf(f, i);
+	//ft_printf(f, i);
 	return 0;
 }
