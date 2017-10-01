@@ -310,7 +310,7 @@ int print_u(t_printf *flags, unsigned long long i)
 		i = (unsigned char)i;
 	if (flags->spec == 'o' || flags->spec == 'O')
 		format_o(flags, i);
-	else if (flags->spec == 'x' || flags->spec == 'X')
+	else if (flags->spec == 'x' || flags->spec == 'X' || flags->spec == 'p')
 		format_x(flags, i);
 	else if (flags->prec_set || flags->showsign || flags->left || flags->space 
 		|| flags->width > 0)
