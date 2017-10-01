@@ -249,8 +249,10 @@ int format_x(t_printf *flags, unsigned long long int i)
 	if (flags->left)
 	{
 		if (flags->alt)
+		{
 			ft_putchar('0');
-		print_prefix(prefix);
+			print_prefix(prefix);
+		}
 		print_zero(num_zero);
 		ft_itoa_base(i, 16, offset);
 		print_space(num_space);
