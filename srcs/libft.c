@@ -114,10 +114,7 @@ int ft_countdigits(long long int i)
 
 	count = 0;
 	if (i < 0)
-	{
-		count++;
 		i = -i;
-	}
 	while (i)
 	{
 		i /= 10;
@@ -131,7 +128,7 @@ int ft_ucountdigits(unsigned long long int i)
 	int count;
 
 	count = 0;
-while (i)
+	while (i)
 	{
 		i /= 10;
 		count++;

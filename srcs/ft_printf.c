@@ -20,7 +20,9 @@ const t_type g_dispatch_table[] = {
 
 int print_info(t_printf *flags)
 {
-	printf("\nPRINT_INFO:\nprec: %i\nprec_set: %i\nwidth: %i\nspec: %c\n\nis_short: %i\nis_char: %i\nis_long: %i\nis_longlong: %i\nis_sizet: %i\nintmax: %i\nalt: %i\nspace: %i\nleft: %i\nshowsign: %i\nwide: %i\npad: %i\nis_int: %i\n", 
+	printf("\nPRINT_INFO:\nprec: %i\nprec_set: %i\nwidth: %i\nspec: %c\n\nis_short: \
+		%i\nis_char: %i\nis_long: %i\nis_longlong: %i\nis_sizet: %i\nintmax: %i\nalt: \
+		%i\nspace: %i\nleft: %i\nshowsign: %i\nwide: %i\npad: %i\nis_int: %i\n", 
 		flags->prec, flags->prec_set, flags->width, flags->spec, flags->is_short,
 		flags->is_char, flags->is_long, flags->is_longlong, flags->is_sizet, flags->intmax,
 		flags->alt, flags->space, flags->left, flags->showsign, flags->wide,
@@ -41,15 +43,28 @@ int format_i(t_printf *flags, long long int i)
 {
 	int num_char;
 	int num_pad;
+	int num_digits;
 
+	num_char = 0;
 	num_pad = 0;
-	num_char = ft_countdigits(i);
-	if (num_char < flags->prec)
-		num_char = flags->prec;
-	// if (flags->width <)
-	if (flags->prec > num_char)
-		num_pad = flags->prec;
-
+	num_digits = ft_countdigits(i);
+	if (num_digits < flags->prec)
+		num_digits = flags->prec;
+	num_char = num_digits;
+	if (i < 0 || flags->showsign)
+		num_char++;
+	else if (i >= 0 && flags->space)
+		num_pad++;
+	if (flags->left)
+	{
+		ft_putnbr(i);
+		pad_n(flags, num_pad);
+	}
+	else 
+	{
+		pad_n(flags, num_pad);
+		ft_putnbr(i);
+	}
 	return (1);
 }
 
@@ -61,7 +76,8 @@ int print_i(t_printf *flags, long long int i)
 		i = (short)i;
 	else if (flags->is_char)
 		i = (char)i;
-	if (flags->prec_set || flags->showsign || flags->left || flags->space)
+	if (flags->prec_set || flags->showsign || flags->left || flags->space || 
+		flags->width > 0)
 		format_i(flags, i);
 	else
 		ft_putnbr(i);
