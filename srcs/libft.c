@@ -73,6 +73,11 @@ void ft_wputnstr(wchar_t *ws, int n)
 	}
 }
 
+void ft_itoa_base(unsigned long long int i, int base, int case)
+{
+	
+}
+
 void	ft_uputnbr(unsigned long long int i)
 {
 	if (i == 0)

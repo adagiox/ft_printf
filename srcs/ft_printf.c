@@ -202,6 +202,42 @@ int format_u(t_printf *flags, unsigned long long int i)
 	return (1);
 }
 
+int print_o(t_printf *flags, unsigned long long int i)
+{
+	return (1);
+}
+
+int print_x(t_printf *flags, unsigned long long int i)
+{
+	return (1);
+}
+
+int format_o(t_printf *flags, unsigned long long int i)
+{
+
+	if (flags->spec == 'O')
+		format_uo(flags, i);
+	return (1);
+}
+
+int format_x(t_printf *flags, unsigned long long int i)
+{
+	int num_space;
+	char prefix;
+	int num_pad;
+	int num_digits;
+	int num_zero;
+	int num_char;
+
+	if (flags->spec == 'X')
+		format_ux(flags, i);
+	num_space = 0;
+	num_char = 0;
+	num_pad = 0;
+	num_zero = 0;
+	return (1);	
+}
+
 int print_i(t_printf *flags, long long int i)
 {
 	if (flags->is_int)
@@ -220,17 +256,18 @@ int print_i(t_printf *flags, long long int i)
 
 int print_u(t_printf *flags, unsigned long long i)
 {
-	int num_char;
-
-	num_char = ft_ucountdigits(i);
 	if (flags->is_int)
 		i = (unsigned int)i;
 	else if (flags->is_short)
 		i = (unsigned short)i;
 	else if (flags->is_char)
 		i = (unsigned char)i;
-	if (flags->prec_set || flags->showsign || flags->left || flags->space || 
-		flags->width > 0)
+	if (flags->spec == 'o' || flags->spec == 'O')
+		format_o(flags, i);
+	else if (flags->spec == 'x' || flags->spec == 'X')
+		format_x(flags, i);
+	else if (flags->prec_set || flags->showsign || flags->left || flags->space 
+		|| flags->width > 0)
 		format_u(flags, i);
 	else
 		ft_uputnbr(i);
@@ -324,29 +361,6 @@ int print_wc(t_printf *flags, wchar_t wc)
 	}
 	else
 		ft_wputchar(wc);
-	return (1);
-}
-
-int print_x(unsigned long long int i)
-{
-	return (1);
-}
-
-int convert_p(t_printf *flags, va_list args)
-{
-	flags->alt = 1;
-	convert_x(flags, args);
-	return (1);
-}
-
-int convert_x(t_printf *flags, va_list args)
-{
-	unsigned long long int n = 1;
-	char *s;
-	// if (flags->alt == 1)
-	// {}
-
-	print_x(n);
 	return (1);
 }
 
@@ -480,6 +494,11 @@ int set_spec(const char **f, t_printf *flags, va_list args)
 		return (-1);
 	(*f)++;
 	if (flags->spec == 'D')
+	{
+		flags->is_long = 1;
+		flags->is_int = 0;
+	}
+	if (flags->spec == 'U')
 	{
 		flags->is_long = 1;
 		flags->is_int = 0;
