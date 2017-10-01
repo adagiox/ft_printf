@@ -39,34 +39,84 @@ void pad_n(t_printf *flags, int n)
 	}
 }
 
+int print_space(int n)
+{
+	while (n)
+	{
+		ft_putchar(' ');
+		n--;
+	}
+	return (1);
+}
+
+int print_zero(int n)
+{
+	while (n)
+	{
+		ft_putchar('0');
+		n--;
+	}
+	return (1); 
+}
+
+int print_prefix(char c)
+{
+	if (c == '+' || c == '-' || c == ' ')
+		ft_putchar(c);
+	return (1);
+}
+
+char set_prefix(t_printf *flags, long long int i)
+{
+	char prefix;
+
+	prefix = '*';
+	if (i < 0)
+		prefix = '-';
+	else if (i >= 0 && flags->showsign)
+		prefix = '+';
+	else if (flags->space)
+		prefix = ' ';
+	return (prefix);
+}
+
 int format_i(t_printf *flags, long long int i)
 {
-	int num_char;
+	int num_space;
+	char prefix;
 	int num_pad;
 	int num_digits;
+	int num_zero;
+	int num_char;
 
+	num_space = 0;
 	num_char = 0;
 	num_pad = 0;
+	num_zero = 0;
+	prefix = set_prefix(flags, i);
 	num_digits = ft_countdigits(i);
 	if (num_digits < flags->prec)
+	{
+		num_zero = flags->prec - num_digits;
 		num_digits = flags->prec;
+	}
 	num_char = num_digits;
-	if (i < 0 || flags->showsign)
-		num_char++;
-	else if (i >= 0 && flags->space)
-		num_pad++;
-	if (num_char < flags->width)
-		num_pad = flags->width - num_char;
+	if (prefix == '-' || prefix == '+' || prefix == ' ')
+		num_digits++;
+	if (num_digits < flags->width)
+		num_space = flags->width - num_digits;
 	if (flags->left)
 	{
+		print_prefix(prefix);
+		print_zero(num_zero);
 		ft_putnbr(i);
-		pad_n(flags, num_pad);
+		print_space(num_space);
 	}
 	else 
 	{
-		if (flags->pad)
-			flags->pad_char = '0';
-		pad_n(flags, num_pad);
+		print_space(num_space);
+		print_prefix(prefix);
+		print_zero(num_zero);
 		ft_putnbr(i);
 	}
 	return (1);
