@@ -3,8 +3,8 @@
 
 int main (int argc, char **argv)
 {
-	char *f = "%#06x\n"; 
-	unsigned long long int i = 42;
+	char *f = "%o\n"; 
+	unsigned long long int i = 424242;
 	printf(f, i);
 	//printf(f, i);
 	ft_printf(f, i);

@@ -216,6 +216,7 @@ int format_o(t_printf *flags, unsigned long long int i)
 {
 	if (flags->alt)
 		ft_putchar('0');
+	ft_itoa_base(i, 8, 0);
 	return (1);
 }
 
