@@ -114,7 +114,10 @@ int format_i(t_printf *flags, long long int i)
 	}
 	else 
 	{
-		print_space(num_space);
+		if (flags->pad)
+			print_zero(num_space);
+		else
+			print_space(num_space);
 		print_prefix(prefix);
 		print_zero(num_zero);
 		ft_putnbr(i);
