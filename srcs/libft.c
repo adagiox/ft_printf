@@ -2,6 +2,9 @@
 #include <wchar.h>
 #include "../includes/ft_printf.h"
 
+const char g_hex[] = {'a', 'b', 'c', 'd', 'e', 'f',
+	 'A', 'B', 'C', 'D', 'E', 'F'};
+
 size_t	ft_strlen(const char *str)
 {
 	size_t length;
@@ -73,9 +76,29 @@ void ft_wputnstr(wchar_t *ws, int n)
 	}
 }
 
-void ft_itoa_base(unsigned long long int i, int base, int case)
+void ft_itoa_base(unsigned long long int value, int base, int offset)
 {
+	char *str;
+	int size;
+	int i = 0;
 	
+	if (value == 0)
+		ft_putchar('0');
+	size = ft_ucountdigits(value);
+	str = (char *)malloc(sizeof(char) * size + 1);
+	i = size;
+	str[i] = '\0';
+	i--;
+	while (value)
+	{
+		if (value % base > 9)
+			str[i] = g_hex[value % base - 10 + offset];
+		else
+			str[i] = value % base + 48;
+		value /= base;
+		i--;
+	}
+	ft_putstr(str);
 }
 
 void	ft_uputnbr(unsigned long long int i)

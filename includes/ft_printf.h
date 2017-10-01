@@ -7,8 +7,7 @@
 #include <stdarg.h>
 #include <wchar.h>
 
-const char g_hex[] = {'a', 'b', 'c', 'd', 'e', 'f',
-	 'A', 'B', 'C', 'D', 'E', 'F'};
+
 
 typedef struct	s_printf
 {
@@ -56,7 +55,7 @@ int		ft_wclen(wchar_t wc);
 int		ft_wputstr(wchar_t *ws);
 int		ft_wputchar(wchar_t wc);
 size_t	ft_strlen(const char *str);
-void ft_itoa_base(unsigned long long int i, int base, int case);
+void ft_itoa_base(unsigned long long int i, int base, int offset);
 
 int	ft_printf(const char *f, ...);
 int vprintf(const char *f, va_list args);

@@ -214,9 +214,6 @@ int print_x(t_printf *flags, unsigned long long int i)
 
 int format_o(t_printf *flags, unsigned long long int i)
 {
-
-	if (flags->spec == 'O')
-		format_uo(flags, i);
 	return (1);
 }
 
@@ -229,8 +226,6 @@ int format_x(t_printf *flags, unsigned long long int i)
 	int num_zero;
 	int num_char;
 
-	if (flags->spec == 'X')
-		format_ux(flags, i);
 	num_space = 0;
 	num_char = 0;
 	num_pad = 0;
@@ -373,6 +368,8 @@ int convert_u(t_printf *flags, va_list args)
 	if (flags->showsign)
 		flags->showsign = 0;
 	u = va_arg(args, unsigned long long int);
+	if (flags->spec == 'x')
+		ft_itoa_base(u, 16, 0);
 	print_u(flags, u);
 	return (1);
 }
