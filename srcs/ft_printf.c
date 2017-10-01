@@ -282,6 +282,8 @@ int convert_i(t_printf *flags, va_list args)
 {
 	long long int i;
 
+	if (flags->prec_set)
+		flags->pad = 0;
 	i = va_arg(args, long long int);
 	print_i(flags, i);
 	return (1);
