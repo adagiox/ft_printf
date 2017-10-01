@@ -3,7 +3,7 @@
 
 int main (int argc, char **argv)
 {
-	char *f = "% i\n"; 
+	char *f = "%+8.4i\n"; 
 	long long int i = -42;
 	printf(f, i);
 	//printf(f, i);

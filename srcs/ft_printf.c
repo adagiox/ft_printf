@@ -115,10 +115,20 @@ int format_i(t_printf *flags, long long int i)
 	else 
 	{
 		if (flags->pad)
+		{
+			print_prefix(prefix);
 			print_zero(num_space);
+		}
 		else
+		{
 			print_space(num_space);
-		print_prefix(prefix);
+			if (i < 0)
+			{
+				ft_putchar('-');
+				i = -i;
+			}
+			print_prefix(prefix);
+		}
 		print_zero(num_zero);
 		ft_putnbr(i);
 	}
