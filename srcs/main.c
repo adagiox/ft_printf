@@ -3,8 +3,8 @@
 
 int main (int argc, char **argv)
 {
-	char *f = "%+8.4i\n"; 
-	long long int i = -42;
+	char *f = "%+u\n"; 
+	unsigned long long int i = 42;
 	printf(f, i);
 	//printf(f, i);
 	ft_printf(f, i);

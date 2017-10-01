@@ -116,6 +116,11 @@ int format_i(t_printf *flags, long long int i)
 	{
 		if (flags->pad)
 		{
+			if (i < 0)
+			{
+				ft_putchar('-');
+				i = -i;
+			}
 			print_prefix(prefix);
 			print_zero(num_space);
 		}
@@ -131,6 +136,68 @@ int format_i(t_printf *flags, long long int i)
 		}
 		print_zero(num_zero);
 		ft_putnbr(i);
+	}
+	return (1);
+}
+
+char set_uprefix(t_printf *flags, unsigned long long int i)
+{
+	char prefix;
+
+	prefix = '*';
+	if (flags->showsign)
+		prefix = '+';
+	else if (flags->space)
+		prefix = ' ';
+	return (prefix);
+}
+
+int format_u(t_printf *flags, unsigned long long int i)
+{
+	int num_space;
+	char prefix;
+	int num_pad;
+	int num_digits;
+	int num_zero;
+	int num_char;
+
+	num_space = 0;
+	num_char = 0;
+	num_pad = 0;
+	num_zero = 0;
+	prefix = set_prefix(flags, i);
+	num_digits = ft_ucountdigits(i);
+	if (num_digits < flags->prec)
+	{
+		num_zero = flags->prec - num_digits;
+		num_digits = flags->prec;
+	}
+	num_char = num_digits;
+	if (prefix == '+' || prefix == ' ')
+		num_digits++;
+	if (num_digits < flags->width)
+		num_space = flags->width - num_digits;
+	if (flags->left)
+	{
+		print_prefix(prefix);
+		print_zero(num_zero);
+		ft_uputnbr(i);
+		print_space(num_space);
+	}
+	else 
+	{
+		if (flags->pad)
+		{
+			print_prefix(prefix);
+			print_zero(num_space);
+		}
+		else
+		{
+			print_space(num_space);
+			print_prefix(prefix);
+		}
+		print_zero(num_zero);
+		ft_uputnbr(i);
 	}
 	return (1);
 }
@@ -162,7 +229,11 @@ int print_u(t_printf *flags, unsigned long long i)
 		i = (unsigned short)i;
 	else if (flags->is_char)
 		i = (unsigned char)i;
-	ft_uputnbr(i);
+	if (flags->prec_set || flags->showsign || flags->left || flags->space || 
+		flags->width > 0)
+		format_u(flags, i);
+	else
+		ft_uputnbr(i);
 	return (1);
 }
 
@@ -283,6 +354,10 @@ int convert_u(t_printf *flags, va_list args)
 {
 	unsigned long long int u;
 
+	if (flags->prec_set)
+		flags->pad = 0;
+	if (flags->showsign)
+		flags->showsign = 0;
 	u = va_arg(args, unsigned long long int);
 	print_u(flags, u);
 	return (1);
