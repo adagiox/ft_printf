@@ -3,8 +3,8 @@
 
 int main (int argc, char **argv)
 {
-	char *f = "%#.10x\n"; 
-	unsigned long long int i = 424242;
+	char *f = "%0.10x\n"; 
+	unsigned long long int i = 0;
 	printf(f, i);
 	//printf(f, i);
 	ft_printf(f, i);

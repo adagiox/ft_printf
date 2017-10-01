@@ -95,8 +95,6 @@ void ft_itoa_base(unsigned long long int value, int base, int offset)
 	int size;
 	int i = 0;
 	
-	if (value == 0)
-		ft_putchar('0');
 	size = ft_getdigits(value, base);
 	str = (char *)malloc(sizeof(char) * size + 1);
 	i = size;
