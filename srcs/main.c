@@ -3,7 +3,7 @@
 
 int main (int argc, char **argv)
 {
-	char *f = "%x\n"; 
+	char *f = "%#06x\n"; 
 	unsigned long long int i = 42;
 	printf(f, i);
 	//printf(f, i);

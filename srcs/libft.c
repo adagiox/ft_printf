@@ -76,6 +76,19 @@ void ft_wputnstr(wchar_t *ws, int n)
 	}
 }
 
+int		ft_getdigits(unsigned long long int value, int base)
+{
+	int count;
+
+	count = 0;
+	while (value)
+	{
+		value /= base;
+		count++;
+	}
+	return count;
+}
+
 void ft_itoa_base(unsigned long long int value, int base, int offset)
 {
 	char *str;
@@ -84,7 +97,7 @@ void ft_itoa_base(unsigned long long int value, int base, int offset)
 	
 	if (value == 0)
 		ft_putchar('0');
-	size = ft_ucountdigits(value);
+	size = ft_getdigits(value, base);
 	str = (char *)malloc(sizeof(char) * size + 1);
 	i = size;
 	str[i] = '\0';

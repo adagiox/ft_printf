@@ -42,6 +42,7 @@ typedef struct	s_type
 int ft_printf(const char *f, ...);
 int ft_atoi(const char *str);
 int ft_isdigit(int c);
+int		ft_getdigits(unsigned long long int value, int base);
 int ft_countdigits(long long int i);
 int ft_ucountdigits(unsigned long long int i);
 void ft_putchar(int c);
