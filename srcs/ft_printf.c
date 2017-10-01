@@ -40,12 +40,16 @@ void pad_n(t_printf *flags, int n)
 int format_i(t_printf *flags, long long int i)
 {
 	int num_char;
+	int num_pad;
 
+	num_pad = 0;
 	num_char = ft_countdigits(i);
-	if (flags->prec < flags->width && num_char > flags->prec && flags->prec_set)
-		flags->pad_char = '0';
-	if (num_char < flags->width)
-		flags->width = flags->width - num_char;
+	// if (num_char < flags->prec)
+	// 	num_char = flags->prec;
+	// if (flags->width <)
+	// if (flags->prec > num_char)
+	// 	num_pad = flags->prec;
+
 	return (1);
 }
 
@@ -57,7 +61,7 @@ int print_i(t_printf *flags, long long int i)
 		i = (short)i;
 	else if (flags->is_char)
 		i = (char)i;
-	
+	format_i(flags, i);
 	return (1);
 }
 
