@@ -61,7 +61,7 @@ int print_zero(int n)
 
 int print_prefix(char c)
 {
-	if (c == '+' || c == '-' || c == ' ')
+	if (c == '+' || c == ' ')
 		ft_putchar(c);
 	return (1);
 }
