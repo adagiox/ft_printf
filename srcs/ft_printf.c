@@ -44,11 +44,11 @@ int format_i(t_printf *flags, long long int i)
 
 	num_pad = 0;
 	num_char = ft_countdigits(i);
-	// if (num_char < flags->prec)
-	// 	num_char = flags->prec;
+	if (num_char < flags->prec)
+		num_char = flags->prec;
 	// if (flags->width <)
-	// if (flags->prec > num_char)
-	// 	num_pad = flags->prec;
+	if (flags->prec > num_char)
+		num_pad = flags->prec;
 
 	return (1);
 }
@@ -61,7 +61,10 @@ int print_i(t_printf *flags, long long int i)
 		i = (short)i;
 	else if (flags->is_char)
 		i = (char)i;
-	format_i(flags, i);
+	if (flags->prec_set || flags->showsign || flags->left || flags->space)
+		format_i(flags, i);
+	else
+		ft_putnbr(i);
 	return (1);
 }
 
