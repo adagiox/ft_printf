@@ -55,6 +55,8 @@ int format_i(t_printf *flags, long long int i)
 		num_char++;
 	else if (i >= 0 && flags->space)
 		num_pad++;
+	if (num_char < flags->width)
+		num_pad = flags->width - num_char;
 	if (flags->left)
 	{
 		ft_putnbr(i);
