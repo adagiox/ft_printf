@@ -144,7 +144,7 @@ char set_uprefix(t_printf *flags, unsigned long long int i)
 	prefix = '*';
 	if (flags->spec == 'O' || flags->spec == 'o')
 		prefix = '0';
-	else if (flags->spec == 'x')
+	else if (flags->spec == 'x' || flags->spec == 'p')
 		prefix = 'x';
 	else if (flags->spec == 'X')
 		prefix = 'X';
@@ -199,16 +199,6 @@ int format_u(t_printf *flags, unsigned long long int i)
 		print_zero(num_zero);
 		ft_uputnbr(i);
 	}
-	return (1);
-}
-
-int print_o(t_printf *flags, unsigned long long int i)
-{
-	return (1);
-}
-
-int print_x(t_printf *flags, unsigned long long int i)
-{
 	return (1);
 }
 
@@ -280,7 +270,6 @@ int format_x(t_printf *flags, unsigned long long int i)
 		print_zero(num_zero);
 		ft_itoa_base(i, 16, offset);
 	}
-	// if alt then print 0 and prefix
 	return (1);	
 }
 
@@ -414,6 +403,8 @@ int convert_u(t_printf *flags, va_list args)
 {
 	unsigned long long int u;
 
+	if (flags->spec == 'p')
+		flags->alt = 1;
 	if (flags->prec_set)
 		flags->pad = 0;
 	if (flags->showsign)
@@ -545,6 +536,11 @@ int set_spec(const char **f, t_printf *flags, va_list args)
 		flags->is_int = 0;
 	}
 	if (flags->spec == 'U')
+	{
+		flags->is_long = 1;
+		flags->is_int = 0;
+	}
+	if (flags->spec == 'p')
 	{
 		flags->is_long = 1;
 		flags->is_int = 0;

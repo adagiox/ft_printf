@@ -68,8 +68,6 @@ int format_o(t_printf *flags, unsigned long long int i);
 int format_x(t_printf *flags, unsigned long long int i);
 char set_prefix(t_printf *flags, long long int i);
 char set_uprefix(t_printf *flags, unsigned long long int i);
-int print_x(t_printf *flags, unsigned long long int i);
-int print_o(t_printf *flags, unsigned long long int i);
 int print_space(int n);
 int print_prefix(char c);
 int print_s(t_printf *flags, char *s);
