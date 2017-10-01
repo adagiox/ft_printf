@@ -204,9 +204,51 @@ int format_u(t_printf *flags, unsigned long long int i)
 
 int format_o(t_printf *flags, unsigned long long int i)
 {
-	// if alt then print prefix
-	ft_itoa_base(i, 8, 0);
-	return (1);
+	int offset;
+	int num_space;
+	int num_pad;
+	int num_digits;
+	int num_zero;
+
+	num_space = 0;
+	num_pad = 0;
+	num_zero = 0;
+	num_digits = ft_getdigits(i, 8);
+	if (num_digits < flags->prec)
+	{
+		num_zero = flags->prec - num_digits;
+		num_digits = flags->prec;
+	}
+	if (flags->alt)
+		num_digits++;
+	if (num_digits < flags->width)
+		num_space = flags->width - num_digits;
+	if (flags->left)
+	{
+		if (flags->alt)
+			ft_putchar('0');
+		print_zero(num_zero);
+		ft_itoa_base(i, 8, offset);
+		print_space(num_space);
+	}
+	else 
+	{
+		if (flags->pad)
+		{
+			if (flags->alt)
+				ft_putchar('0');
+			print_zero(num_space);
+		}
+		else
+		{
+			print_space(num_space);
+			if (flags->alt)
+				ft_putchar('0');
+		}
+		print_zero(num_zero);
+		ft_itoa_base(i, 8, offset);
+	}
+	return (1);	
 }
 
 int format_x(t_printf *flags, unsigned long long int i)
