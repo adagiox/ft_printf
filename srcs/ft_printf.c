@@ -61,7 +61,7 @@ int print_zero(int n)
 
 int print_prefix(char c)
 {
-	if (c == '+' || c == ' ')
+	if (c == '+' || c == ' ' || c == 'x' || c == 'X')
 		ft_putchar(c);
 	return (1);
 }
@@ -87,10 +87,8 @@ int format_i(t_printf *flags, long long int i)
 	int num_pad;
 	int num_digits;
 	int num_zero;
-	int num_char;
 
 	num_space = 0;
-	num_char = 0;
 	num_pad = 0;
 	num_zero = 0;
 	prefix = set_prefix(flags, i);
@@ -100,7 +98,6 @@ int format_i(t_printf *flags, long long int i)
 		num_zero = flags->prec - num_digits;
 		num_digits = flags->prec;
 	}
-	num_char = num_digits;
 	if (prefix == '-' || prefix == '+' || prefix == ' ')
 		num_digits++;
 	if (num_digits < flags->width)
@@ -145,7 +142,13 @@ char set_uprefix(t_printf *flags, unsigned long long int i)
 	char prefix;
 
 	prefix = '*';
-	if (flags->showsign)
+	if (flags->spec == 'O' || flags->spec == 'o')
+		prefix = '0';
+	else if (flags->spec == 'x')
+		prefix = 'x';
+	else if (flags->spec == 'X')
+		prefix = 'X';
+	else if (flags->showsign)
 		prefix = '+';
 	else if (flags->space)
 		prefix = ' ';
@@ -159,10 +162,8 @@ int format_u(t_printf *flags, unsigned long long int i)
 	int num_pad;
 	int num_digits;
 	int num_zero;
-	int num_char;
 
 	num_space = 0;
-	num_char = 0;
 	num_pad = 0;
 	num_zero = 0;
 	prefix = set_prefix(flags, i);
@@ -172,7 +173,6 @@ int format_u(t_printf *flags, unsigned long long int i)
 		num_zero = flags->prec - num_digits;
 		num_digits = flags->prec;
 	}
-	num_char = num_digits;
 	if (prefix == '+' || prefix == ' ')
 		num_digits++;
 	if (num_digits < flags->width)
@@ -214,8 +214,7 @@ int print_x(t_printf *flags, unsigned long long int i)
 
 int format_o(t_printf *flags, unsigned long long int i)
 {
-	if (flags->alt)
-		ft_putchar('0');
+	// if alt then print prefix
 	ft_itoa_base(i, 8, 0);
 	return (1);
 }
@@ -227,17 +226,59 @@ int format_x(t_printf *flags, unsigned long long int i)
 	int num_pad;
 	int num_digits;
 	int num_zero;
-	int num_char;
+	char prefix;
 
+	num_space = 0;
+	num_pad = 0;
+	num_zero = 0;
+	prefix = set_uprefix(flags, i);
+	num_digits = ft_getdigits(i, 16);
 	if (flags->spec == 'X')
 		offset = 6;
 	else 
 		offset = 0;
-
-	num_space = 0;
-	num_char = 0;
-	num_pad = 0;
-	num_zero = 0;
+	if (num_digits < flags->prec)
+	{
+		num_zero = flags->prec - num_digits;
+		num_digits = flags->prec;
+	}
+	if (flags->alt)
+		num_digits += 2;
+	if (num_digits < flags->width)
+		num_space = flags->width - num_digits;
+	if (flags->left)
+	{
+		if (flags->alt)
+			ft_putchar('0');
+		print_prefix(prefix);
+		print_zero(num_zero);
+		ft_itoa_base(i, 16, offset);
+		print_space(num_space);
+	}
+	else 
+	{
+		if (flags->pad)
+		{
+			if (flags->alt)
+			{
+				ft_putchar('0');
+				print_prefix(prefix);
+			}
+			print_zero(num_space);
+		}
+		else
+		{
+			print_space(num_space);
+			if (flags->alt)
+			{
+				ft_putchar('0');
+				print_prefix(prefix);
+			}
+		}
+		print_zero(num_zero);
+		ft_itoa_base(i, 16, offset);
+	}
+	// if alt then print 0 and prefix
 	return (1);	
 }
 
