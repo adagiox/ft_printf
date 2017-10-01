@@ -64,6 +64,8 @@ int format_i(t_printf *flags, long long int i)
 	}
 	else 
 	{
+		if (flags->pad)
+			flags->pad_char = '0';
 		pad_n(flags, num_pad);
 		ft_putnbr(i);
 	}
