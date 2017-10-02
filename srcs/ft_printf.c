@@ -269,13 +269,8 @@ int format_x(t_printf *flags, unsigned long long int i)
 	num_zero = 0;
 	if (i == 0)
 	{
-		// if (flags->alt)
-		// {
-		// 	if (flags->spec == 'X')
-		// 		ft_putstr(flags, "0X");
-		// 	if (flags->spec == 'x' || flags->spec == 'p')
-		// 		ft_putstr(flags, "0x");
-		// }
+		if (flags->spec == 'p')
+			ft_putstr(flags, "0x");
 		ft_putchar(flags, '0');
 		return (1);
 	}
