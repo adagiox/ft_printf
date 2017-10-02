@@ -98,7 +98,7 @@ int format_i(t_printf *flags, long long int i)
 	}
 	if (prefix == '-' || prefix == '+' || prefix == ' ')
 		num_digits++;
-	if (num_digits < flags->width)
+	if (num_digits <= flags->width)
 		num_space = flags->width - num_digits;
 	if (flags->left)
 	{
@@ -232,7 +232,7 @@ int format_o(t_printf *flags, unsigned long long int i)
 	}
 	if (flags->alt)
 		num_digits++;
-	if (num_digits < flags->width)
+	if (num_digits <= flags->width)
 		num_space = flags->width - num_digits;
 	if (flags->left)
 	{
@@ -302,7 +302,7 @@ int format_x(t_printf *flags, unsigned long long int i)
 	}
 	if (flags->alt)
 		num_digits += 2;
-	if (num_digits < flags->width)
+	if (num_digits <= flags->width)
 		num_space = flags->width - num_digits;
 	if (flags->left)
 	{
