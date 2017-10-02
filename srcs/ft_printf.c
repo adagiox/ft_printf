@@ -214,7 +214,11 @@ int format_o(t_printf *flags, unsigned long long int i)
 	num_pad = 0;
 	num_zero = 0;
 	if (i == 0)
+	{
+		if (flags->alt)
+			ft_putchar(flags, '0');
 		return (1);
+	}
 	num_digits = ft_getdigits(i, 8);
 	if (num_digits < flags->prec)
 	{
