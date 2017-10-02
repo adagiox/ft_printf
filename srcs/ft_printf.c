@@ -225,7 +225,7 @@ int format_o(t_printf *flags, unsigned long long int i)
 		num_space = flags->width - num_digits;
 	if (flags->left)
 	{
-		if (flags->alt)
+		if (flags->alt && i != 0)
 			ft_putchar('0');
 		print_zero(num_zero);
 		ft_itoa_base(i, 8, offset);
@@ -235,14 +235,14 @@ int format_o(t_printf *flags, unsigned long long int i)
 	{
 		if (flags->pad)
 		{
-			if (flags->alt)
+			if (flags->alt && i != 0)
 				ft_putchar('0');
 			print_zero(num_space);
 		}
 		else
 		{
 			print_space(num_space);
-			if (flags->alt)
+			if (flags->alt && i != 0)
 				ft_putchar('0');
 		}
 		print_zero(num_zero);
