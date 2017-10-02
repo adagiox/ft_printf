@@ -3,15 +3,14 @@
 
 int main (int argc, char **argv)
 {
-	// char *f = "%p\n"; 
-	// unsigned long long int i = 42;
-	// printf(f, &i);
-	// //printf(f, i);
-	// ft_printf(f, &i);
+	char *f = "%hU\n"; 
+	unsigned long i = 4294967296;
+	printf(f, i);
+	ft_printf(f, i);
 
-	char *str = malloc(sizeof(char) * 10);
+	// char *str = malloc(sizeof(char) * 10);
 
-	printf("ACTUAL:				 -->%15p<--\n", str);
-	ft_printf("MINE:				 -->%15p<--\n", str);
+	// printf("ACTUAL:				 -->%15p<--\n", str);
+	// ft_printf("MINE:				 -->%15p<--\n", str);
 	return 0;
 }

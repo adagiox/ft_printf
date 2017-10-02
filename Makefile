@@ -21,5 +21,11 @@ test:
 	./a.out
 
 clean:
-	rm $(NAME)
 	rm *.o
+
+fclean: clean
+	rm $(NAME)
+
+re: fclean all
+
+.PHONY: clean fclean all re

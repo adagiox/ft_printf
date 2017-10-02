@@ -110,6 +110,7 @@ void ft_itoa_base(unsigned long long int value, int base, int offset)
 		i--;
 	}
 	ft_putstr(str);
+	free(str);
 }
 
 void	ft_uputnbr(unsigned long long int i)
@@ -126,11 +127,6 @@ void	ft_uputnbr(unsigned long long int i)
 
 void	ft_putnbr(long long int i)
 {
-	if (i == 0)
-	{
-		ft_putchar('0');
-		return ;
-	}
 	if (i < 0)
 	{
 		if (i < -9223372036854775807)

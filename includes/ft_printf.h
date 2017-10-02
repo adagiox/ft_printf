@@ -11,6 +11,7 @@
 
 typedef struct	s_printf
 {
+	int length; /* Bytes written */
 	int prec; /* Precision. */
 	unsigned int prec_set:1;
 	int width; /* Width. */
@@ -67,7 +68,7 @@ int format_u(t_printf *flags, unsigned long long int i);
 int format_o(t_printf *flags, unsigned long long int i);
 int format_x(t_printf *flags, unsigned long long int i);
 char set_prefix(t_printf *flags, long long int i);
-char set_uprefix(t_printf *flags, unsigned long long int i);
+char set_uprefix(t_printf *flags);
 int print_space(int n);
 int print_prefix(char c);
 int print_s(t_printf *flags, char *s);

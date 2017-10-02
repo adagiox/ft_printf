@@ -137,7 +137,7 @@ int format_i(t_printf *flags, long long int i)
 	return (1);
 }
 
-char set_uprefix(t_printf *flags, unsigned long long int i)
+char set_uprefix(t_printf *flags)
 {
 	char prefix;
 
@@ -166,7 +166,7 @@ int format_u(t_printf *flags, unsigned long long int i)
 	num_space = 0;
 	num_pad = 0;
 	num_zero = 0;
-	prefix = set_prefix(flags, i);
+	prefix = set_uprefix(flags);
 	num_digits = ft_ucountdigits(i);
 	if (num_digits < flags->prec)
 	{
@@ -204,7 +204,6 @@ int format_u(t_printf *flags, unsigned long long int i)
 
 int format_o(t_printf *flags, unsigned long long int i)
 {
-	int offset;
 	int num_space;
 	int num_pad;
 	int num_digits;
@@ -228,7 +227,7 @@ int format_o(t_printf *flags, unsigned long long int i)
 		if (flags->alt && i != 0)
 			ft_putchar('0');
 		print_zero(num_zero);
-		ft_itoa_base(i, 8, offset);
+		ft_itoa_base(i, 8, 0);
 		print_space(num_space);
 	}
 	else 
@@ -246,7 +245,7 @@ int format_o(t_printf *flags, unsigned long long int i)
 				ft_putchar('0');
 		}
 		print_zero(num_zero);
-		ft_itoa_base(i, 8, offset);
+		ft_itoa_base(i, 8, 0);
 	}
 	return (1);	
 }
@@ -263,7 +262,7 @@ int format_x(t_printf *flags, unsigned long long int i)
 	num_space = 0;
 	num_pad = 0;
 	num_zero = 0;
-	prefix = set_uprefix(flags, i);
+	prefix = set_uprefix(flags);
 	num_digits = ft_getdigits(i, 16);
 	if (flags->spec == 'X')
 		offset = 6;
@@ -525,6 +524,7 @@ t_printf *init_flags()
 	t_printf *flags;
 
 	flags = (t_printf *)malloc(sizeof(t_printf));
+	flags->length = 0;
 	flags->prec = 1;
 	flags->prec_set = 0;
 	flags->width = 0;
@@ -580,6 +580,7 @@ int set_spec(const char **f, t_printf *flags, va_list args)
 	if (flags->spec == 'U')
 	{
 		flags->is_long = 1;
+		flags->is_short = 0;
 		flags->is_int = 0;
 	}
 	if (flags->spec == 'p')
@@ -656,6 +657,7 @@ int set_width(const char **f, t_printf *flags, va_list args)
 int set_flags(const char **f, va_list args)
 {
 	t_printf *flags;
+	int length;
 	
 	if (**f == '%')
 	{
@@ -678,18 +680,21 @@ int set_flags(const char **f, va_list args)
 		(*f)++;
 	}
 	set_width(f, flags, args);
-	free(flags);
-	return (1);
+	length = flags->length;
+	//free(flags);
+	return (length);
 }
 
 int vprintf(const char *f, va_list args)
 {
+	int length;
+
 	while (*f)
 	{
 		if (*f == '%')
 		{
 			f++;
-			if (set_flags(&f, args) == -1)
+			if ((length = set_flags(&f, args)) == -1)
 				return -1;
 		}
 		else
@@ -698,7 +703,7 @@ int vprintf(const char *f, va_list args)
 			f++;
 		}
 	}
-	return (1);
+	return (length);
 }
 
 int ft_printf(const char *f, ...)
