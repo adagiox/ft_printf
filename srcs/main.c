@@ -3,7 +3,7 @@
 
 int main (int argc, char **argv)
 {
-	char *f = "%#x\n"; 
+	char *f = "%+d\n"; 
 	int l;
 	int fl;
 	int s = 0;

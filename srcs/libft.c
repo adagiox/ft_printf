@@ -154,6 +154,8 @@ int ft_countdigits(long long int i)
 	int count;
 
 	count = 0;
+	if (i == 0)
+		return (1);
 	if (i < 0)
 		i = -i;
 	while (i)
