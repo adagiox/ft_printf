@@ -34,7 +34,6 @@ void pad_n(t_printf *flags, int n)
 {
 	while (n)
 	{
-		flags->length++;
 		ft_putchar(flags, flags->pad_char);
 		n--;
 	}
