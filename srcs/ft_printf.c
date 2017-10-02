@@ -213,6 +213,8 @@ int format_o(t_printf *flags, unsigned long long int i)
 	num_space = 0;
 	num_pad = 0;
 	num_zero = 0;
+	if (i == 0)
+		return (1);
 	num_digits = ft_getdigits(i, 8);
 	if (num_digits < flags->prec)
 	{
