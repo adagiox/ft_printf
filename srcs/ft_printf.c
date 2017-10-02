@@ -679,9 +679,13 @@ int set_flags(const char **f, va_list args)
 			flags->pad = 1;
 		(*f)++;
 	}
-	set_width(f, flags, args);
+	if (set_width(f, flags, args) == -1)
+	{
+		free(flags);
+		return (-1);
+	}
 	length = flags->length;
-	//free(flags);
+	free(flags);
 	return (length);
 }
 
