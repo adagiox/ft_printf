@@ -3,10 +3,14 @@
 
 int main (int argc, char **argv)
 {
-	char *f = "%hU\n"; 
+	char *f = "%hUasd\n"; 
+	int l;
+	int fl;
 	unsigned long i = 4294967296;
-	printf(f, i);
-	ft_printf(f, i);
+	fl = printf(f, i);
+	l = ft_printf(f, i);
+
+	printf("Printf return: %i\nMy return:%i\n", fl, l);
 
 	// char *str = malloc(sizeof(char) * 10);
 

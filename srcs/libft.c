@@ -42,35 +42,41 @@ int	ft_atoi(const char *str)
 	return (nbr * sign);
 }
 
-void ft_putchar(int c)
+void ft_putchar(t_printf *flags, int c)
+{
+	flags->length++;
+	write(1, &c, 1);
+}
+
+void ft_nputchar(int c)
 {
 	write(1, &c, 1);
 }
 
-void ft_putstr(char *s)
+void ft_putstr(t_printf *flags, char *s)
 {
 	while (*s)
 	{
-		ft_putchar(*s);
+		ft_putchar(flags, *s);
 		s++;
 	}
 }
 
-void ft_putnstr(char *s, int n)
+void ft_putnstr(t_printf *flags, char *s, int n)
 {
 	while (*s && n)
 	{
-		ft_putchar(*s);
+		ft_putchar(flags, *s);
 		s++;
 		n--;
 	}
 }
 
-void ft_wputnstr(wchar_t *ws, int n)
+void ft_wputnstr(t_printf *flags, wchar_t *ws, int n)
 {
 	while (*ws && n)
 	{
-		ft_wputchar(*ws);
+		ft_wputchar(flags, *ws);
 		ws++;
 		n--;
 	}
@@ -89,7 +95,7 @@ int		ft_getdigits(unsigned long long int value, int base)
 	return count;
 }
 
-void ft_itoa_base(unsigned long long int value, int base, int offset)
+void ft_itoa_base(t_printf *flags, unsigned long long int value, int base, int offset)
 {
 	char *str;
 	int size;
@@ -109,38 +115,38 @@ void ft_itoa_base(unsigned long long int value, int base, int offset)
 		value /= base;
 		i--;
 	}
-	ft_putstr(str);
+	ft_putstr(flags, str);
 	free(str);
 }
 
-void	ft_uputnbr(unsigned long long int i)
+void	ft_uputnbr(t_printf *flags, unsigned long long int i)
 {
 	if (i == 0)
 	{
-		ft_putchar('0');
+		ft_putchar(flags, '0');
 		return ;
 	}
 	if (i / 10)
-		ft_uputnbr(i / 10);
-	ft_putchar(i % 10 + '0');
+		ft_uputnbr(flags, i / 10);
+	ft_putchar(flags, i % 10 + '0');
 }
 
-void	ft_putnbr(long long int i)
+void	ft_putnbr(t_printf *flags, long long int i)
 {
 	if (i < 0)
 	{
 		if (i < -9223372036854775807)
 		{
-			ft_putnbr(i / 10);
-			ft_putchar('8');
+			ft_putnbr(flags, i / 10);
+			ft_putchar(flags, '8');
 			return ;
 		}
-		ft_putchar('-');
+		ft_putchar(flags, '-');
 		i = -i;
 	}
 	if (i / 10)
-		ft_putnbr(i / 10);
-	ft_putchar(i % 10 + '0');
+		ft_putnbr(flags, i / 10);
+	ft_putchar(flags, i % 10 + '0');
 }
 
 int ft_countdigits(long long int i)
@@ -192,55 +198,49 @@ int		ft_wclen(wchar_t wc)
 
 int		ft_wstrlen(wchar_t *ws)
 {
-	int	len;
-
-	len = 0;
 	if (!ws)
 		return (ft_strlen("(null)"));
 	while (*ws)
 	{
-		len += ft_wclen(*ws);
+		ft_wclen(*ws);
 		ws++;
 	}
-	return (len);
+	return (1);
 }
 
-int		ft_wputstr(wchar_t *ws)
+int		ft_wputstr(t_printf *flags, wchar_t *ws)
 {
-	int len;
-
-	len = 0;
 	while (*ws)
 	{
-		len += ft_wputchar(*ws);
+		ft_wputchar(flags, *ws);
 		ws++;
 	}
-	return (len);
+	return (1);
 }
 
-int		ft_wputchar(wchar_t wc)
+int		ft_wputchar(t_printf *flags, wchar_t wc)
 {
 	if ((unsigned int)wc < 128)
-		ft_putchar((unsigned int)wc);
+		ft_putchar(flags, (unsigned int)wc);
 	else if ((unsigned int)wc < 2048)
 	{
-		ft_putchar(((unsigned int)wc >> 6) | 192);
-		ft_putchar(((unsigned int)wc & 63) | 128);
+		ft_putchar(flags, ((unsigned int)wc >> 6) | 192);
+		ft_putchar(flags, ((unsigned int)wc & 63) | 128);
 		return (2);
 	}
 	else if ((unsigned int)wc < 65536)
 	{
-		ft_putchar(((unsigned int)wc >> 12) | 224);
-		ft_putchar((((unsigned int)wc >> 6) & 63) | 128);
-		ft_putchar((((unsigned int)wc) & 63) | 128);
+		ft_putchar(flags, ((unsigned int)wc >> 12) | 224);
+		ft_putchar(flags, (((unsigned int)wc >> 6) & 63) | 128);
+		ft_putchar(flags, (((unsigned int)wc) & 63) | 128);
 		return (3);
 	}
 	else
 	{
-		ft_putchar(((unsigned int)wc >> 18) | 240);
-		ft_putchar((((unsigned int)wc >> 12) & 63) | 128);
-		ft_putchar((((unsigned int)wc >> 6) & 63) | 128);
-		ft_putchar(((unsigned int)wc & 63) | 128);
+		ft_putchar(flags, ((unsigned int)wc >> 18) | 240);
+		ft_putchar(flags, (((unsigned int)wc >> 12) & 63) | 128);
+		ft_putchar(flags, (((unsigned int)wc >> 6) & 63) | 128);
+		ft_putchar(flags, ((unsigned int)wc & 63) | 128);
 		return (4);
 	}
 	return (1);

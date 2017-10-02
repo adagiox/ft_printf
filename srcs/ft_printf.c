@@ -34,35 +34,36 @@ void pad_n(t_printf *flags, int n)
 {
 	while (n)
 	{
-		ft_putchar(flags->pad_char);
+		flags->length++;
+		ft_putchar(flags, flags->pad_char);
 		n--;
 	}
 }
 
-int print_space(int n)
+int print_space(t_printf *flags, int n)
 {
 	while (n)
 	{
-		ft_putchar(' ');
+		ft_putchar(flags, ' ');
 		n--;
 	}
 	return (1);
 }
 
-int print_zero(int n)
+int print_zero(t_printf *flags, int n)
 {
 	while (n)
 	{
-		ft_putchar('0');
+		ft_putchar(flags, '0');
 		n--;
 	}
 	return (1); 
 }
 
-int print_prefix(char c)
+int print_prefix(t_printf *flags, char c)
 {
 	if (c == '+' || c == ' ' || c == 'x' || c == 'X')
-		ft_putchar(c);
+		ft_putchar(flags, c);
 	return (1);
 }
 
@@ -104,10 +105,10 @@ int format_i(t_printf *flags, long long int i)
 		num_space = flags->width - num_digits;
 	if (flags->left)
 	{
-		print_prefix(prefix);
-		print_zero(num_zero);
-		ft_putnbr(i);
-		print_space(num_space);
+		print_prefix(flags, prefix);
+		print_zero(flags, num_zero);
+		ft_putnbr(flags, i);
+		print_space(flags, num_space);
 	}
 	else 
 	{
@@ -115,24 +116,24 @@ int format_i(t_printf *flags, long long int i)
 		{
 			if (i < 0)
 			{
-				ft_putchar('-');
+				ft_putchar(flags, '-');
 				i = -i;
 			}
-			print_prefix(prefix);
-			print_zero(num_space);
+			print_prefix(flags, prefix);
+			print_zero(flags, num_space);
 		}
 		else
 		{
-			print_space(num_space);
+			print_space(flags, num_space);
 			if (i < 0)
 			{
-				ft_putchar('-');
+				ft_putchar(flags, '-');
 				i = -i;
 			}
-			print_prefix(prefix);
+			print_prefix(flags, prefix);
 		}
-		print_zero(num_zero);
-		ft_putnbr(i);
+		print_zero(flags, num_zero);
+		ft_putnbr(flags, i);
 	}
 	return (1);
 }
@@ -179,25 +180,25 @@ int format_u(t_printf *flags, unsigned long long int i)
 		num_space = flags->width - num_digits;
 	if (flags->left)
 	{
-		print_prefix(prefix);
-		print_zero(num_zero);
-		ft_uputnbr(i);
-		print_space(num_space);
+		print_prefix(flags, prefix);
+		print_zero(flags, num_zero);
+		ft_uputnbr(flags, i);
+		print_space(flags, num_space);
 	}
 	else 
 	{
 		if (flags->pad)
 		{
-			print_prefix(prefix);
-			print_zero(num_space);
+			print_prefix(flags, prefix);
+			print_zero(flags, num_space);
 		}
 		else
 		{
-			print_space(num_space);
-			print_prefix(prefix);
+			print_space(flags, num_space);
+			print_prefix(flags, prefix);
 		}
-		print_zero(num_zero);
-		ft_uputnbr(i);
+		print_zero(flags, num_zero);
+		ft_uputnbr(flags, i);
 	}
 	return (1);
 }
@@ -225,27 +226,27 @@ int format_o(t_printf *flags, unsigned long long int i)
 	if (flags->left)
 	{
 		if (flags->alt && i != 0)
-			ft_putchar('0');
-		print_zero(num_zero);
-		ft_itoa_base(i, 8, 0);
-		print_space(num_space);
+			ft_putchar(flags, '0');
+		print_zero(flags, num_zero);
+		ft_itoa_base(flags, i, 8, 0);
+		print_space(flags, num_space);
 	}
 	else 
 	{
 		if (flags->pad)
 		{
 			if (flags->alt && i != 0)
-				ft_putchar('0');
-			print_zero(num_space);
+				ft_putchar(flags, '0');
+			print_zero(flags, num_space);
 		}
 		else
 		{
-			print_space(num_space);
+			print_space(flags, num_space);
 			if (flags->alt && i != 0)
-				ft_putchar('0');
+				ft_putchar(flags, '0');
 		}
-		print_zero(num_zero);
-		ft_itoa_base(i, 8, 0);
+		print_zero(flags, num_zero);
+		ft_itoa_base(flags, i, 8, 0);
 	}
 	return (1);	
 }
@@ -281,12 +282,12 @@ int format_x(t_printf *flags, unsigned long long int i)
 	{
 		if (flags->alt)
 		{
-			ft_putchar('0');
-			print_prefix(prefix);
+			ft_putchar(flags, '0');
+			print_prefix(flags, prefix);
 		}
-		print_zero(num_zero);
-		ft_itoa_base(i, 16, offset);
-		print_space(num_space);
+		print_zero(flags, num_zero);
+		ft_itoa_base(flags, i, 16, offset);
+		print_space(flags, num_space);
 	}
 	else 
 	{
@@ -294,22 +295,22 @@ int format_x(t_printf *flags, unsigned long long int i)
 		{
 			if (flags->alt)
 			{
-				ft_putchar('0');
-				print_prefix(prefix);
+				ft_putchar(flags, '0');
+				print_prefix(flags, prefix);
 			}
-			print_zero(num_space);
+			print_zero(flags, num_space);
 		}
 		else
 		{
-			print_space(num_space);
+			print_space(flags, num_space);
 			if (flags->alt)
 			{
-				ft_putchar('0');
-				print_prefix(prefix);
+				ft_putchar(flags, '0');
+				print_prefix(flags, prefix);
 			}
 		}
-		print_zero(num_zero);
-		ft_itoa_base(i, 16, offset);
+		print_zero(flags, num_zero);
+		ft_itoa_base(flags, i, 16, offset);
 	}
 	return (1);	
 }
@@ -326,7 +327,7 @@ int print_i(t_printf *flags, long long int i)
 		flags->width > 0)
 		format_i(flags, i);
 	else
-		ft_putnbr(i);
+		ft_putnbr(flags, i);
 	return (1);
 }
 
@@ -346,7 +347,7 @@ int print_u(t_printf *flags, unsigned long long i)
 		|| flags->width > 0)
 		format_u(flags, i);
 	else
-		ft_uputnbr(i);
+		ft_uputnbr(flags, i);
 	return (1);
 }
 
@@ -363,13 +364,13 @@ int print_s(t_printf *flags, char *s)
 		flags->width = flags->width - num_char;
 	if (flags->left == 1)
 	{
-		ft_putnstr(s, num_char);
+		ft_putnstr(flags, s, num_char);
 		pad_n(flags, flags->width);
 	}
 	else 
 	{
 		pad_n(flags, flags->width);
-		ft_putnstr(s, num_char);
+		ft_putnstr(flags, s, num_char);
 	}
 	return (1);
 }
@@ -387,13 +388,13 @@ int print_ws(t_printf *flags, wchar_t *ws)
 		flags->width = flags->width - num_char;
 	if (flags->left == 1)
 	{
-		ft_wputnstr(ws, num_char);
+		ft_wputnstr(flags, ws, num_char);
 		pad_n(flags, flags->width);
 	}
 	else 
 	{
 		pad_n(flags, flags->width);
-		ft_wputnstr(ws, num_char);
+		ft_wputnstr(flags, ws, num_char);
 	}
 	return (1);
 }
@@ -405,17 +406,17 @@ int print_c(t_printf *flags, int c)
 		flags->width = flags->width - 1;
 		if (flags->left == 1)
 		{
-			ft_putchar(c);
+			ft_putchar(flags, c);
 			pad_n(flags, flags->width);
 		}
 		else
 		{
 			pad_n(flags, flags->width);
-			ft_putchar(c);
+			ft_putchar(flags, c);
 		}
 	}
 	else
-		ft_putchar(c);
+		ft_putchar(flags, c);
 	return (1);
 }
 
@@ -426,17 +427,17 @@ int print_wc(t_printf *flags, wchar_t wc)
 		flags->width = flags->width - 1;
 		if (flags->left == 1)
 		{
-			ft_wputchar(wc);
+			ft_wputchar(flags, wc);
 			pad_n(flags, flags->width);
 		}
 		else
 		{
 			pad_n(flags, flags->width);
-			ft_wputchar(wc);
+			ft_wputchar(flags, wc);
 		}
 	}
 	else
-		ft_wputchar(wc);
+		ft_wputchar(flags, wc);
 	return (1);
 }
 
@@ -476,7 +477,7 @@ int convert_s(t_printf *flags, va_list args)
 	{
 		if ((s = va_arg(args, char *)) == NULL)
 		{
-			ft_putstr("(null)");
+			ft_putstr(flags, "(null)");
 			return 1;
 		}
 		print_s(flags, s);
@@ -490,7 +491,7 @@ int convert_ws(t_printf *flags, va_list args)
 
 	if ((ws = va_arg(args, wchar_t *)) == NULL)
 	{
-		ft_putstr("(null)");
+		ft_putstr(flags, "(null)");
 		return 1;
 	}
 	print_ws(flags, ws);
@@ -693,17 +694,19 @@ int vprintf(const char *f, va_list args)
 {
 	int length;
 
+	length = 0;
 	while (*f)
 	{
 		if (*f == '%')
 		{
 			f++;
-			if ((length = set_flags(&f, args)) == -1)
+			if ((length += set_flags(&f, args)) == -1)
 				return -1;
 		}
 		else
 		{
-			ft_putchar(*f);
+			ft_nputchar(*f);
+			length++;
 			f++;
 		}
 	}

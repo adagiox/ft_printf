@@ -7,7 +7,7 @@ FLAGS = -Wall -Werror -Wextra -c
 
 SRC = $(addprefix srcs/, $(FILES))
 
-OBJ = $(SRC:srcs/%=%.o)
+OBJ = ft_printf.o libft.o
 
 all: $(NAME)
 
@@ -21,10 +21,10 @@ test:
 	./a.out
 
 clean:
-	rm *.o
+	rm -rf $(OBJ)
 
 fclean: clean
-	rm $(NAME)
+	rm -rf $(NAME)
 
 re: fclean all
 
