@@ -3,10 +3,10 @@
 
 int main (int argc, char **argv)
 {
-	char *f = "%hUasd\n"; 
+	char *f = "% u\n"; 
 	int l;
 	int fl;
-	unsigned long i = 4294967296;
+	unsigned int i = 4294967295;
 	fl = printf(f, i);
 	l = ft_printf(f, i);
 

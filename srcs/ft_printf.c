@@ -263,6 +263,11 @@ int format_x(t_printf *flags, unsigned long long int i)
 	num_space = 0;
 	num_pad = 0;
 	num_zero = 0;
+	if (i == 0)
+	{
+		ft_putchar(flags, '0');
+		return (1);
+	}
 	prefix = set_uprefix(flags);
 	num_digits = ft_getdigits(i, 16);
 	if (flags->spec == 'X')
@@ -451,6 +456,8 @@ int convert_u(t_printf *flags, va_list args)
 		flags->pad = 0;
 	if (flags->showsign)
 		flags->showsign = 0;
+	if (flags->space == 1)
+		flags->space = 0;
 	u = va_arg(args, unsigned long long int);
 	print_u(flags, u);
 	return (1);
