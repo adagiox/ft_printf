@@ -60,7 +60,6 @@ int	ft_wputchar(t_printf *flags, wchar_t wc);
 size_t ft_strlen(const char *str);
 void ft_itoa_base(t_printf *flags, unsigned long long int i, int base, int offset);
 
-int	ft_printf(const char *f, ...);
 int vprintf(const char *f, va_list args);
 void pad_n(t_printf *flags, int n);
 int format_i(t_printf *flags, long long int i);
@@ -86,6 +85,7 @@ int convert_u(t_printf *flags, va_list args);
 int convert_wc(t_printf *flags, va_list args);
 int convert_ws(t_printf *flags, va_list args);
 int do_conversion(t_printf *flags, va_list args);
+int handle_percent(t_printf *flags);
 int set_flags(const char **f, va_list args);
 int set_spec(const char **f, t_printf *flags, va_list args);
 int set_length(const char **f, t_printf *flags, va_list args);

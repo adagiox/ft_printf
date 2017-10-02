@@ -173,7 +173,7 @@ int format_u(t_printf *flags, unsigned long long int i)
 	}
 	if (prefix == '+' || prefix == ' ')
 		num_digits++;
-	if (num_digits < flags->width)
+	if (num_digits <= flags->width)
 		num_space = flags->width - num_digits;
 	if (flags->left)
 	{
@@ -592,15 +592,40 @@ int do_conversion(t_printf *flags, va_list args)
 	return (1);
 }
 
+int handle_percent(t_printf *flags)
+{
+	int num_char;
+
+	num_char = 1;
+	if (num_char <= flags->width)
+		flags->width = flags->width - num_char;
+	if (flags->left == 1)
+	{
+		ft_putchar(flags, '%');
+		print_space(flags, flags->width);
+	}
+	else 
+	{
+		print_space(flags, flags->width);
+		ft_putchar(flags, '%');
+	}
+	return (1);
+}
+
 int set_spec(const char **f, t_printf *flags, va_list args)
 {
 	if (**f == 's' || **f == 'S' || **f == 'p' || **f == 'd' || **f == 'D' || 
 		**f == 'i' || **f == 'o' || **f == 'O' || **f == 'u' || **f == 'U' || 
-		**f == 'x' || **f == 'X' || **f == 'c' || **f == 'C')
+		**f == 'x' || **f == 'X' || **f == 'c' || **f == 'C' || **f == '%')
 		flags->spec = **f;
 	else
 		return (-1);
 	(*f)++;
+	if (flags->spec == '%')
+	{
+		handle_percent(flags);
+		return (1);
+	}
 	if (flags->spec == 'D')
 	{
 		flags->is_long = 1;
@@ -688,11 +713,6 @@ int set_flags(const char **f, va_list args)
 	t_printf *flags;
 	int length;
 	
-	if (**f == '%')
-	{
-		write(1, (*f)++, 1);
-		return (1);
-	}
 	flags = init_flags();
 	while (**f == '#' || **f == '-' || **f == '+' || **f == ' ' || **f == '0')
 	{
