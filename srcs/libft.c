@@ -198,14 +198,17 @@ int		ft_wclen(wchar_t wc)
 
 int		ft_wstrlen(wchar_t *ws)
 {
+	int len;
+
+	len = 0;
 	if (!ws)
 		return (ft_strlen("(null)"));
 	while (*ws)
 	{
-		ft_wclen(*ws);
+		len += ft_wclen(*ws);
 		ws++;
 	}
-	return (1);
+	return (len);
 }
 
 int		ft_wputstr(t_printf *flags, wchar_t *ws)

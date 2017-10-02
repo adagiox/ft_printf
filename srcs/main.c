@@ -3,12 +3,12 @@
 
 int main (int argc, char **argv)
 {
-	char *f = "% u\n"; 
+	char *f = "%S\n"; 
 	int l;
 	int fl;
-	unsigned int i = 4294967295;
-	fl = printf(f, i);
-	l = ft_printf(f, i);
+	wchar_t *s = L"@@";
+	fl = printf(f, s);
+	l = ft_printf(f, s);
 
 	printf("Printf return: %i\nMy return:%i\n", fl, l);
 
