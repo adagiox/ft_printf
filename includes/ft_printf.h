@@ -62,7 +62,6 @@ void ft_itoa_base(t_printf *flags, unsigned long long int i, int base, int offse
 
 int	ft_printf(const char *f, ...);
 int vprintf(const char *f, va_list args);
-int print_info(t_printf *flags);
 void pad_n(t_printf *flags, int n);
 int format_i(t_printf *flags, long long int i);
 int format_u(t_printf *flags, unsigned long long int i);

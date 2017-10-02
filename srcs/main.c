@@ -3,12 +3,12 @@
 
 int main (int argc, char **argv)
 {
-	char *f = "%+d\n"; 
+	char *f = "%5%"; 
 	int l;
 	int fl;
 	int s = 0;
-	fl = printf(f, s);
-	l = ft_printf(f, s);
+	fl = printf("%1%\n");
+	l = ft_printf("%1%\n");
 
 	printf("Printf return: %i\nMy return:%i\n", fl, l);
 

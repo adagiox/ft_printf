@@ -18,18 +18,6 @@ const t_type g_dispatch_table[] = {
 	{'C', convert_c},
 };
 
-int print_info(t_printf *flags)
-{
-	printf("\nPRINT_INFO:\nprec: %i\nprec_set: %i\nwidth: %i\nspec: %c\n\nis_short: \
-		%i\nis_char: %i\nis_long: %i\nis_longlong: %i\nis_sizet: %i\nintmax: %i\nalt: \
-		%i\nspace: %i\nleft: %i\nshowsign: %i\nwide: %i\npad: %i\nis_int: %i\n", 
-		flags->prec, flags->prec_set, flags->width, flags->spec, flags->is_short,
-		flags->is_char, flags->is_long, flags->is_longlong, flags->is_sizet, flags->intmax,
-		flags->alt, flags->space, flags->left, flags->showsign, flags->wide,
-		flags->pad, flags->is_int);
-	return (1);
-}
-
 void pad_n(t_printf *flags, int n)
 {
 	while (n)
@@ -91,6 +79,16 @@ int format_i(t_printf *flags, long long int i)
 	num_space = 0;
 	num_pad = 0;
 	num_zero = 0;
+	if (i == 0)
+	{
+		if (flags->prec == 0 && flags->width == 0)
+			return (1);
+		else if (flags->prec == 0 && flags->width > 0)
+		{
+			print_space(flags, flags->width);
+			return (1);
+		}
+	}
 	prefix = set_prefix(flags, i);
 	num_digits = ft_countdigits(i);
 	if (num_digits < flags->prec)
@@ -214,7 +212,16 @@ int format_o(t_printf *flags, unsigned long long int i)
 	num_zero = 0;
 	if (i == 0)
 	{
-		ft_putchar(flags, '0');
+
+		if (flags->prec != 0 || flags->alt)
+			ft_putchar(flags, '0');
+		if (flags->prec == 0 && flags->width == 0)
+			return (1);
+		else if (flags->prec == 0 && flags->width > 0)
+		{
+			print_space(flags, flags->width);
+			return (1);
+		}
 		return (1);
 	}
 	num_digits = ft_getdigits(i, 8);
@@ -269,9 +276,17 @@ int format_x(t_printf *flags, unsigned long long int i)
 	num_zero = 0;
 	if (i == 0)
 	{
+		if (flags->prec == 0 && flags->width == 0)
+			return (1);
+		else if (flags->prec == 0 && flags->width > 0)
+		{
+			print_space(flags, flags->width);
+			return (1);
+		}
 		if (flags->spec == 'p')
 			ft_putstr(flags, "0x");
-		ft_putchar(flags, '0');
+		if (flags->prec != 0)
+			ft_putchar(flags, '0');
 		return (1);
 	}
 	prefix = set_uprefix(flags);

@@ -171,6 +171,8 @@ int ft_ucountdigits(unsigned long long int i)
 	int count;
 
 	count = 0;
+	if (i == 0)
+		return (1);
 	while (i)
 	{
 		i /= 10;
