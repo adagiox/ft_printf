@@ -3,10 +3,10 @@
 
 int main (int argc, char **argv)
 {
-	char *f = "%10s is a string\n"; 
+	char *f = "%#x\n"; 
 	int l;
 	int fl;
-	char *s = "this";
+	int s = 0;
 	fl = printf(f, s);
 	l = ft_printf(f, s);
 
