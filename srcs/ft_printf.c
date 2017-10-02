@@ -580,6 +580,11 @@ int do_conversion(t_printf *flags, va_list args)
 	int i;
 
 	i = 0;
+	if (flags->spec == 'p')
+	{
+		flags->is_long = 1;
+		flags->is_int = 0;
+	}
 	while (1)
 	{
 		if (flags->spec == g_dispatch_table[i].spec)
@@ -637,11 +642,6 @@ int set_spec(const char **f, t_printf *flags, va_list args)
 		flags->is_short = 0;
 		flags->is_int = 0;
 	}
-	if (flags->spec == 'p')
-	{
-		flags->is_long = 1;
-		flags->is_int = 0;
-	}
 	return (do_conversion(flags, args));
 }
 
@@ -670,8 +670,6 @@ int set_length(const char **f, t_printf *flags, va_list args)
 		flags->is_int = 0;
 		(*f) += 2;
 	}
-	if (flags->is_long == 1 || flags->is_longlong == 1 || flags->is_sizet == 1)
-		flags->intmax = 1;
 	return (set_spec(f, flags, args));
 }
 
@@ -695,6 +693,9 @@ int set_prec(const char **f, t_printf *flags, va_list args)
 
 int set_width(const char **f, t_printf *flags, va_list args)
 {
+	int length;
+
+	length = 0;
 	if (flags->space && flags->pad)
 		flags->pad = 0;
 	if (flags->showsign && flags->space)
@@ -705,7 +706,11 @@ int set_width(const char **f, t_printf *flags, va_list args)
 		while (ft_isdigit(**f))
 			(*f)++;
 	}
-	return (set_prec(f, flags, args));
+	if (set_prec(f, flags, args) == -1)
+		length = -1;
+	else
+		length = flags->length;
+	return (length);
 }
 
 int set_flags(const char **f, va_list args)
@@ -728,12 +733,11 @@ int set_flags(const char **f, va_list args)
 			flags->pad = 1;
 		(*f)++;
 	}
-	if (set_width(f, flags, args) == -1)
+	if ((length = set_width(f, flags, args)) == -1)
 	{
 		free(flags);
 		return (-1);
 	}
-	length = flags->length;
 	free(flags);
 	return (length);
 }
