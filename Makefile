@@ -15,7 +15,8 @@ FILES =	ft_printf.c \
 		handle_percent.c \
 		libft_print.c \
 		libft_wprint.c \
-
+		libft_digits.c \
+		libft_nbrprint.c \
 
 FLAGS = -Wall -Werror -Wextra -c
 
@@ -35,7 +36,9 @@ OBJ = ft_printf.o \
 		cast_int.o \
 		handle_percent.o \
 		libft_print.o \
-		libft_wprint.c \
+		libft_wprint.o \
+		libft_digits.o \
+		libft_nbrprint.o \
 
 all: $(NAME)
 
