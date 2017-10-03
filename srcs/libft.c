@@ -1,5 +1,3 @@
-#include <unistd.h>
-#include <wchar.h>
 #include "../includes/ft_printf.h"
 
 const char g_hex[] = {'a', 'b', 'c', 'd', 'e', 'f',
