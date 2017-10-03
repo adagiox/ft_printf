@@ -7,3 +7,4 @@ notes
 ._.DS_Store
 includes/.DS_Store
 includes/._.DS_Store
+srcs/main.c
