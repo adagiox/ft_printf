@@ -1,7 +1,6 @@
 NAME = libftprintf.a
 
 FILES =	ft_printf.c \
-		libft.c \
 		print_helpers.c \
 		format_int.c \
 		format_uint.c \
@@ -23,7 +22,6 @@ FLAGS = -Wall -Werror -Wextra -c
 SRC = $(addprefix srcs/, $(FILES))
 
 OBJ = ft_printf.o \
-		libft.o \
 		print_helpers.o \
 		format_int.o \
 		format_uint.o \
