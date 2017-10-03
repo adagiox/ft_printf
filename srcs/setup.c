@@ -26,12 +26,7 @@ int	set_spec(const char **f, t_printf *flags, va_list args)
 		handle_percent(flags);
 		return (1);
 	}
-	if (flags->spec == 'D')
-	{
-		flags->is_long = 1;
-		flags->is_int = 0;
-	}
-	if (flags->spec == 'U')
+	if (flags->spec == 'U' || flags->spec == 'O' || flags->spec == 'D')
 	{
 		flags->is_long = 1;
 		flags->is_short = 0;
