@@ -1,33 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_percent.c                                   :+:      :+:    :+:   */
+/*   libft_print.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erintala <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/03 00:33:13 by erintala          #+#    #+#             */
-/*   Updated: 2017/10/03 00:33:15 by erintala         ###   ########.fr       */
+/*   Created: 2017/10/03 02:14:37 by erintala          #+#    #+#             */
+/*   Updated: 2017/10/03 02:14:39 by erintala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-int	handle_percent(t_printf *flags)
+size_t	ft_strlen(const char *str)
 {
-	int num_char;
+	size_t length;
 
-	num_char = 1;
-	if (num_char <= flags->width)
-		flags->width = flags->width - num_char;
-	if (flags->left == 1)
+	length = 0;
+	while (*str++)
+		length++;
+	return (length);
+}
+
+void	ft_putchar(t_printf *flags, int c)
+{
+	flags->length++;
+	write(1, &c, 1);
+}
+
+void	ft_nputchar(int c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_putstr(t_printf *flags, char *s)
+{
+	while (*s)
 	{
-		ft_putchar(flags, '%');
-		print_space(flags, flags->width);
+		ft_putchar(flags, *s);
+		s++;
 	}
-	else
+}
+
+void	ft_putnstr(t_printf *flags, char *s, int n)
+{
+	while (*s && n)
 	{
-		print_space(flags, flags->width);
-		ft_putchar(flags, '%');
+		ft_putchar(flags, *s);
+		s++;
+		n--;
 	}
-	return (1);
 }

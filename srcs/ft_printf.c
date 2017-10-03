@@ -12,7 +12,7 @@
 
 #include "../includes/ft_printf.h"
 
-const t_type g_dispatch_table[] = {
+const		t_type g_dispatch_table[] = {
 	{'s', convert_s},
 	{'S', convert_ws},
 	{'p', convert_u},
@@ -29,7 +29,7 @@ const t_type g_dispatch_table[] = {
 	{'C', convert_c},
 };
 
-t_printf *init_flags()
+t_printf	*init_flags(void)
 {
 	t_printf *flags;
 
@@ -57,7 +57,7 @@ t_printf *init_flags()
 	return (flags);
 }
 
-int do_conversion(t_printf *flags, va_list args)
+int			do_conversion(t_printf *flags, va_list args)
 {
 	int i;
 
@@ -79,7 +79,7 @@ int do_conversion(t_printf *flags, va_list args)
 	return (1);
 }
 
-int vprintf(const char *f, va_list args)
+int			vprintf(const char *f, va_list args)
 {
 	int length;
 
@@ -90,7 +90,7 @@ int vprintf(const char *f, va_list args)
 		{
 			f++;
 			if ((length += set_flags(&f, args)) == -1)
-				return -1;
+				return (-1);
 		}
 		else
 		{
@@ -102,13 +102,13 @@ int vprintf(const char *f, va_list args)
 	return (length);
 }
 
-int ft_printf(const char *f, ...)
+int			ft_printf(const char *f, ...)
 {
-	int done;
-	va_list args;
+	int		done;
+	va_list	args;
 
 	va_start(args, f);
 	done = vprintf(f, args);
 	va_end(args);
-	return done;
+	return (done);
 }

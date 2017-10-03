@@ -12,7 +12,7 @@
 
 #include "../includes/ft_printf.h"
 
-void print_left_uint(t_printf *flags, int num_space, int num_zero, 
+void	print_left_uint(t_printf *flags, int num_space, int num_zero,
 	unsigned long long int i)
 {
 	print_prefix(flags);
@@ -21,7 +21,7 @@ void print_left_uint(t_printf *flags, int num_space, int num_zero,
 	print_space(flags, num_space);
 }
 
-void print_uint(t_printf *flags, int num_space, int num_zero, 
+void	print_uint(t_printf *flags, int num_space, int num_zero,
 	unsigned long long int i)
 {
 	if (flags->pad)
@@ -38,7 +38,7 @@ void print_uint(t_printf *flags, int num_space, int num_zero,
 	ft_uputnbr(flags, i);
 }
 
-int format_uint(t_printf *flags, unsigned long long int i)
+int		format_uint(t_printf *flags, unsigned long long int i)
 {
 	int num_space;
 	int num_pad;
@@ -60,7 +60,7 @@ int format_uint(t_printf *flags, unsigned long long int i)
 		num_space = flags->width - num_digits;
 	if (flags->left)
 		print_left_uint(flags, num_space, num_zero, i);
-	else 
+	else
 		print_uint(flags, num_space, num_zero, i);
 	return (1);
 }

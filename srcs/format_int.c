@@ -12,7 +12,7 @@
 
 #include "../includes/ft_printf.h"
 
-int zero_case_int(t_printf *flags, long long int i)
+int		zero_case_int(t_printf *flags, long long int i)
 {
 	if (i == 0)
 	{
@@ -27,7 +27,7 @@ int zero_case_int(t_printf *flags, long long int i)
 	return (0);
 }
 
-void print_left_int(t_printf *flags, int num_space, int num_zero, 
+void	print_left_int(t_printf *flags, int num_space, int num_zero,
 	long long int i)
 {
 	print_prefix(flags);
@@ -36,7 +36,7 @@ void print_left_int(t_printf *flags, int num_space, int num_zero,
 	print_space(flags, num_space);
 }
 
-void print_int(t_printf *flags, int num_space, int num_zero, long long int i)
+void	print_int(t_printf *flags, int num_space, int num_zero, long long int i)
 {
 	if (flags->pad)
 	{
@@ -62,7 +62,7 @@ void print_int(t_printf *flags, int num_space, int num_zero, long long int i)
 	ft_putnbr(flags, i);
 }
 
-int format_int(t_printf *flags, long long int i)
+int		format_int(t_printf *flags, long long int i)
 {
 	int num_space;
 	int num_pad;
@@ -85,7 +85,7 @@ int format_int(t_printf *flags, long long int i)
 		num_space = flags->width - num_digits;
 	if (flags->left)
 		print_left_int(flags, num_space, num_zero, i);
-	else 
+	else
 		print_int(flags, num_space, num_zero, i);
 	return (1);
 }

@@ -12,11 +12,10 @@
 
 #include "../includes/ft_printf.h"
 
-int zero_case_oct(t_printf *flags, unsigned long long int i)
+int		zero_case_oct(t_printf *flags, unsigned long long int i)
 {
 	if (i == 0)
 	{
-
 		if (flags->prec != 0 || flags->alt)
 			ft_putchar(flags, '0');
 		if (flags->prec == 0 && flags->width == 0)
@@ -31,7 +30,7 @@ int zero_case_oct(t_printf *flags, unsigned long long int i)
 	return (0);
 }
 
-void print_left_oct(t_printf *flags, int num_space, int num_zero, 
+void	print_left_oct(t_printf *flags, int num_space, int num_zero,
 	unsigned long long int i)
 {
 	if (flags->alt && i != 0)
@@ -41,7 +40,7 @@ void print_left_oct(t_printf *flags, int num_space, int num_zero,
 	print_space(flags, num_space);
 }
 
-void print_oct(t_printf *flags, int num_space, int num_zero, 
+void	print_oct(t_printf *flags, int num_space, int num_zero,
 	unsigned long long int i)
 {
 	if (flags->pad)
@@ -60,7 +59,7 @@ void print_oct(t_printf *flags, int num_space, int num_zero,
 	ft_itoa_base(flags, i, 8, 0);
 }
 
-int format_oct(t_printf *flags, unsigned long long int i)
+int		format_oct(t_printf *flags, unsigned long long int i)
 {
 	int num_space;
 	int num_pad;
@@ -83,7 +82,7 @@ int format_oct(t_printf *flags, unsigned long long int i)
 		num_space = flags->width - num_digits;
 	if (flags->left)
 		print_left_oct(flags, num_space, num_zero, i);
-	else 
+	else
 		print_oct(flags, num_space, num_zero, i);
-	return (1);	
+	return (1);
 }

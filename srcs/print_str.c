@@ -12,7 +12,7 @@
 
 #include "../includes/ft_printf.h"
 
-int print_s(t_printf *flags, char *s)
+int	print_s(t_printf *flags, char *s)
 {
 	int num_char;
 
@@ -28,7 +28,7 @@ int print_s(t_printf *flags, char *s)
 		ft_putnstr(flags, s, num_char);
 		print_space(flags, flags->width);
 	}
-	else 
+	else
 	{
 		print_space(flags, flags->width);
 		ft_putnstr(flags, s, num_char);
@@ -36,7 +36,7 @@ int print_s(t_printf *flags, char *s)
 	return (1);
 }
 
-int print_ws(t_printf *flags, wchar_t *ws)
+int	print_ws(t_printf *flags, wchar_t *ws)
 {
 	int num_char;
 
@@ -52,7 +52,7 @@ int print_ws(t_printf *flags, wchar_t *ws)
 		ft_wputnstr(flags, ws, num_char);
 		print_space(flags, flags->width);
 	}
-	else 
+	else
 	{
 		print_space(flags, flags->width);
 		ft_wputnstr(flags, ws, num_char);
@@ -60,7 +60,7 @@ int print_ws(t_printf *flags, wchar_t *ws)
 	return (1);
 }
 
-int print_c(t_printf *flags, int c)
+int	print_c(t_printf *flags, int c)
 {
 	if (flags->width > 1)
 	{
@@ -81,7 +81,7 @@ int print_c(t_printf *flags, int c)
 	return (1);
 }
 
-int print_wc(t_printf *flags, wchar_t wc)
+int	print_wc(t_printf *flags, wchar_t wc)
 {
 	if (flags->width > 1)
 	{

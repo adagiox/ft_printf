@@ -12,7 +12,7 @@
 
 #include "../includes/ft_printf.h"
 
-int cast_int(t_printf *flags, long long int i)
+int	cast_int(t_printf *flags, long long int i)
 {
 	if (flags->is_int)
 		i = (int)i;
@@ -20,7 +20,7 @@ int cast_int(t_printf *flags, long long int i)
 		i = (short)i;
 	else if (flags->is_char)
 		i = (char)i;
-	if (flags->prec_set || flags->showsign || flags->left || flags->space || 
+	if (flags->prec_set || flags->showsign || flags->left || flags->space ||
 		flags->width > 0)
 		format_int(flags, i);
 	else
@@ -28,7 +28,7 @@ int cast_int(t_printf *flags, long long int i)
 	return (1);
 }
 
-int cast_uint(t_printf *flags, unsigned long long i)
+int	cast_uint(t_printf *flags, unsigned long long i)
 {
 	if (flags->is_int)
 		i = (unsigned int)i;
@@ -40,7 +40,7 @@ int cast_uint(t_printf *flags, unsigned long long i)
 		format_oct(flags, i);
 	else if (flags->spec == 'x' || flags->spec == 'X' || flags->spec == 'p')
 		format_hex(flags, i);
-	else if (flags->prec_set || flags->showsign || flags->left || flags->space 
+	else if (flags->prec_set || flags->showsign || flags->left || flags->space
 		|| flags->width > 0)
 		format_uint(flags, i);
 	else

@@ -12,7 +12,7 @@
 
 #include "../includes/ft_printf.h"
 
-int convert_u(t_printf *flags, va_list args)
+int	convert_u(t_printf *flags, va_list args)
 {
 	unsigned long long int u;
 
@@ -29,7 +29,7 @@ int convert_u(t_printf *flags, va_list args)
 	return (1);
 }
 
-int convert_i(t_printf *flags, va_list args)
+int	convert_i(t_printf *flags, va_list args)
 {
 	long long int i;
 
@@ -40,38 +40,38 @@ int convert_i(t_printf *flags, va_list args)
 	return (1);
 }
 
-int convert_s(t_printf *flags, va_list args)
+int	convert_s(t_printf *flags, va_list args)
 {
 	char *s;
 
 	if (flags->is_long == 1)
-		convert_ws(flags, args);	
-	else 
+		convert_ws(flags, args);
+	else
 	{
 		if ((s = va_arg(args, char *)) == NULL)
 		{
 			ft_putstr(flags, "(null)");
-			return 1;
+			return (1);
 		}
 		print_s(flags, s);
 	}
 	return (1);
 }
 
-int convert_ws(t_printf *flags, va_list args)
+int	convert_ws(t_printf *flags, va_list args)
 {
 	wchar_t *ws;
 
 	if ((ws = va_arg(args, wchar_t *)) == NULL)
 	{
 		ft_putstr(flags, "(null)");
-		return 1;
+		return (1);
 	}
 	print_ws(flags, ws);
-	return 1;
+	return (1);
 }
 
-int convert_c(t_printf *flags, va_list args)
+int	convert_c(t_printf *flags, va_list args)
 {
 	int c;
 

@@ -12,7 +12,7 @@
 
 #include "../includes/ft_printf.h"
 
-int convert_wc(t_printf *flags, va_list args)
+int	convert_wc(t_printf *flags, va_list args)
 {
 	wchar_t wc;
 

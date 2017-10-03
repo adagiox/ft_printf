@@ -12,7 +12,7 @@
 
 #include "../includes/ft_printf.h"
 
-int print_space(t_printf *flags, int n)
+int	print_space(t_printf *flags, int n)
 {
 	while (n)
 	{
@@ -22,17 +22,17 @@ int print_space(t_printf *flags, int n)
 	return (1);
 }
 
-int print_zero(t_printf *flags, int n)
+int	print_zero(t_printf *flags, int n)
 {
 	while (n)
 	{
 		ft_putchar(flags, '0');
 		n--;
 	}
-	return (1); 
+	return (1);
 }
 
-int print_prefix(t_printf *flags)
+int	print_prefix(t_printf *flags)
 {
 	if (flags->prefix == '+' || flags->prefix == ' ' || flags->prefix == 'x' ||
 		flags->prefix == 'X')
@@ -40,7 +40,7 @@ int print_prefix(t_printf *flags)
 	return (1);
 }
 
-int set_prefix(t_printf *flags, long long int i)
+int	set_prefix(t_printf *flags, long long int i)
 {
 	if (i < 0)
 		flags->prefix = '-';
@@ -51,7 +51,7 @@ int set_prefix(t_printf *flags, long long int i)
 	return (1);
 }
 
-int set_uprefix(t_printf *flags)
+int	set_uprefix(t_printf *flags)
 {
 	if (flags->spec == 'O' || flags->spec == 'o')
 		flags->prefix = '0';

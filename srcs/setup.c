@@ -12,10 +12,10 @@
 
 #include "../includes/ft_printf.h"
 
-int set_spec(const char **f, t_printf *flags, va_list args)
+int	set_spec(const char **f, t_printf *flags, va_list args)
 {
-	if (**f == 's' || **f == 'S' || **f == 'p' || **f == 'd' || **f == 'D' || 
-		**f == 'i' || **f == 'o' || **f == 'O' || **f == 'u' || **f == 'U' || 
+	if (**f == 's' || **f == 'S' || **f == 'p' || **f == 'd' || **f == 'D' ||
+		**f == 'i' || **f == 'o' || **f == 'O' || **f == 'u' || **f == 'U' ||
 		**f == 'x' || **f == 'X' || **f == 'c' || **f == 'C' || **f == '%')
 		flags->spec = **f;
 	else
@@ -40,7 +40,7 @@ int set_spec(const char **f, t_printf *flags, va_list args)
 	return (do_conversion(flags, args));
 }
 
-int set_length(const char **f, t_printf *flags, va_list args)
+int	set_length(const char **f, t_printf *flags, va_list args)
 {
 	if (**f == 'h' && *(*f + 1) == 'h')
 		flags->is_char = 1;
@@ -68,7 +68,7 @@ int set_length(const char **f, t_printf *flags, va_list args)
 	return (set_spec(f, flags, args));
 }
 
-int set_prec(const char **f, t_printf *flags, va_list args)
+int	set_prec(const char **f, t_printf *flags, va_list args)
 {
 	if (**f == '.')
 	{
@@ -86,7 +86,7 @@ int set_prec(const char **f, t_printf *flags, va_list args)
 	return (set_length(f, flags, args));
 }
 
-int set_width(const char **f, t_printf *flags, va_list args)
+int	set_width(const char **f, t_printf *flags, va_list args)
 {
 	int length;
 
@@ -108,11 +108,11 @@ int set_width(const char **f, t_printf *flags, va_list args)
 	return (length);
 }
 
-int set_flags(const char **f, va_list args)
+int	set_flags(const char **f, va_list args)
 {
-	t_printf *flags;
-	int length;
-	
+	t_printf	*flags;
+	int			length;
+
 	flags = init_flags();
 	while (**f == '#' || **f == '-' || **f == '+' || **f == ' ' || **f == '0')
 	{
